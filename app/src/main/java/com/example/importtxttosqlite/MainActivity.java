@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 import android.widget.ListView;
@@ -17,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
     private String tableName ="tb_ano";
     private String columns = "id, descricao";
 
+    private ArrayAdapter<String> itensAdaptador;
+    private ArrayList<Integer> ids;
+    private ArrayList<String> descricoes;
+
+    private ListView listaAnos;
 
     MainActivity mContext = this;
 
@@ -90,29 +97,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnImportar = (Button) findViewById(R.id.btnImport);
-        Button btnListar = (Button) findViewById(R.id.btnListar);
-        ListView listaAnos = (ListView) findViewById(R.id.lstAnos);
 
+        listaAnos = (ListView) findViewById(R.id.lstAnos);
 
-        btnImportar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImportarAnos();
+        ListarAnos();
 
-            }
-        });
-
-        btnListar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                ListarAnos();
-
-
-            }
-        });
 
 
     }
@@ -130,16 +119,38 @@ public class MainActivity extends AppCompatActivity {
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
 
-            Cursor cr = db.rawQuery("SELECT descricao FROM " + tableName , null );
-            int indColDesc = cr.getColumnIndex("descricao");
-            cr.moveToFirst();
+            Cursor cr = db.rawQuery("SELECT id, descricao FROM " + tableName , null );
 
+            if(cr==null)
+                ImportarAnos();
+
+            int indColId = cr.getColumnIndex("id");
+            int indColDesc = cr.getColumnIndex("descricao");
+
+            descricoes = new ArrayList<String>();
+            ids = new ArrayList<Integer>();
+            itensAdaptador= new ArrayAdapter<String>(getApplicationContext(),
+                    android.R.layout.simple_list_item_2
+                    , android.R.id.text1
+                    , descricoes);
+
+            listaAnos.setAdapter(itensAdaptador);
+
+
+            cr.moveToFirst();
             do
             {
+                Log.i("Logx", "ID" + cr.getString(indColId));
+                ids.add(cr.getInt(indColId));
                 Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
+                descricoes.add(cr.getString(indColDesc));
                 cr.moveToNext();
-                if(cr.isLast())
+                if(cr.isLast()) {
+                    Log.i("Logx", "ID" + cr.getString(indColId));
+                    ids.add(cr.getInt(indColId));
                     Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
+                    descricoes.add(cr.getString(indColDesc));
+                }
 
             }while (!cr.isLast());
         }
