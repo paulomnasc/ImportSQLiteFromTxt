@@ -11,8 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
+import android.widget.ListView;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,20 +24,33 @@ public class MainActivity extends AppCompatActivity {
     private String tableName ="tb_ano";
     private String columns = "id, descricao";
 
+
+    MainActivity mContext = this;
+
     private void ImportarTxt()
     {
 
 
-        String fileName = "D:\\Users\\cblna\\Documents\\Paulo\\Capacitacao\\AndroidStudio\\Data\\anosEM.CSV";
+        //String fileName = "D:\\Users\\cblna\\Documents\\Paulo\\github\\ImportSQLiteFromTxt\\Data\\anosEM.CSV";
+        String fileName = "anosEM.CSV";
         try
         {
-            FileReader file = new FileReader(fileName);
+            //FileReader file = new FileReader(fileName);
+
+            InputStreamReader file = new InputStreamReader(getAssets()
+                    .open(fileName));
+
             BufferedReader buffer = new BufferedReader(file);
             String line = "";
 
 
+            File dbpath = mContext.getDatabasePath("StudyApp");
 
-            db = SQLiteDatabase.openOrCreateDatabase("StudyApp", null ,null);
+            if (!dbpath.getParentFile().exists()) {
+                dbpath.getParentFile().mkdirs();
+            }
+
+            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
 
             db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName + "(id INTEGER PRIMARY KEY AUTOINCREMENT, descricao VARCHAR(255) NOT NULL)");
 
@@ -61,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch(Exception ex)
         {
-            Log.w(TAG, "ImportarTxt: ", ex);
+            Log.i("Erro: ", "ImportarTxt: ", ex);
         }
 
 
@@ -74,8 +91,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btnImportar = (Button) findViewById(R.id.btnImport);
-
         Button btnListar = (Button) findViewById(R.id.btnListar);
+        ListView listaAnos = (ListView) findViewById(R.id.lstAnos);
+
 
         btnImportar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,12 +107,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Cursor cr = db.rawQuery("SELECT descricao FROM " + tableName , null );
-                cr.moveToFirst();
-                while (cr!= null)
-                {
 
+                try {
+
+
+                    File dbpath = mContext.getDatabasePath("StudyApp");
+
+                    if (!dbpath.getParentFile().exists()) {
+                        dbpath.getParentFile().mkdirs();
+                    }
+
+
+                    db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
+
+                    Cursor cr = db.rawQuery("SELECT descricao FROM " + tableName , null );
+                    int indColDesc = cr.getColumnIndex("descricao");
+                    cr.moveToFirst();
+
+                    while (cr != null)
+                    {
+                        Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
+                        cr.moveToNext();
+                    }
                 }
+                catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+
+
 
 
             }
