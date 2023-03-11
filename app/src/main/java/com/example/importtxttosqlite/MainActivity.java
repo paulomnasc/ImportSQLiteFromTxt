@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     MainActivity mContext = this;
 
-    private void ImportarTxt()
+    private void ImportarAnos()
     {
 
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch(Exception ex)
         {
-            Log.i("Erro: ", "ImportarTxt: ", ex);
+            Log.i("Erro: ", "ImportarAnos: ", ex);
         }
 
 
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         btnImportar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImportarTxt();
+                ImportarAnos();
 
             }
         });
@@ -108,39 +108,44 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                try {
-
-
-                    File dbpath = mContext.getDatabasePath("StudyApp");
-
-                    if (!dbpath.getParentFile().exists()) {
-                        dbpath.getParentFile().mkdirs();
-                    }
-
-
-                    db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
-                    Cursor cr = db.rawQuery("SELECT descricao FROM " + tableName , null );
-                    int indColDesc = cr.getColumnIndex("descricao");
-                    cr.moveToFirst();
-
-                    while (cr != null)
-                    {
-                        Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
-                        cr.moveToNext();
-                    }
-                }
-                catch(Exception ex)
-                {
-                    ex.printStackTrace();
-                }
-
-
+                ListarAnos();
 
 
             }
         });
 
 
+    }
+
+    private void ListarAnos() {
+        try {
+
+
+            File dbpath = mContext.getDatabasePath("StudyApp");
+
+            if (!dbpath.getParentFile().exists()) {
+                dbpath.getParentFile().mkdirs();
+            }
+
+
+            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
+
+            Cursor cr = db.rawQuery("SELECT descricao FROM " + tableName , null );
+            int indColDesc = cr.getColumnIndex("descricao");
+            cr.moveToFirst();
+
+            do
+            {
+                Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
+                cr.moveToNext();
+                if(cr.isLast())
+                    Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
+
+            }while (!cr.isLast());
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
     }
 }
