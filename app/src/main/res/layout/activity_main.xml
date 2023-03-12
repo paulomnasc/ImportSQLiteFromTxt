@@ -8,8 +8,8 @@
 
     <ListView
         android:id="@+id/lstAnos"
-        android:layout_width="404dp"
-        android:layout_height="631dp"
+        android:layout_width="402dp"
+        android:layout_height="473dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="1dp"
@@ -26,6 +26,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TRUNCATE tb_Anos"
+        android:visibility="invisible"
         tools:layout_editor_absoluteX="33dp" />
+
+    <Button
+        android:id="@+id/btnAvancar"
+        android:layout_width="119dp"
+        android:layout_height="65dp"
+        android:enabled="false"
+        android:text="Próximo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lstAnos" />
+
+    <Button
+        android:id="@+id/btnImportDisciplinas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="4dp"
+        android:text="Imp. Disciplinas"
+        app:layout_constraintBottom_toTopOf="@+id/lstAnos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnRecreate"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

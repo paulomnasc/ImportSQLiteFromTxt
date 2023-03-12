@@ -4,10 +4,12 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ArrayAdapter;
 import android.database.sqlite.SQLiteDatabase;
@@ -33,7 +35,80 @@ public class MainActivity extends AppCompatActivity {
     private ListView listaAnos;
     private Button btnRecriar;
 
+    private Button btnAvancar;
+
+    private Button btnImpDisciplinas;
+
     MainActivity mContext = this;
+
+    private Integer idSelecionado;
+
+    private void importarDisciplinas(int idAno, int ano)
+    {
+
+        tableName = "tb_disciplinas";
+
+        String fileName = "Disciplicinas" + ano + "EM.CSV";
+        try
+        {
+            //FileReader file = new FileReader(fileName);
+
+            InputStreamReader file = new InputStreamReader(getAssets()
+                    .open(fileName));
+
+            BufferedReader buffer = new BufferedReader(file);
+            String line = "";
+
+
+            File dbpath = mContext.getDatabasePath("StudyApp");
+
+            if (!dbpath.getParentFile().exists()) {
+                dbpath.getParentFile().mkdirs();
+            }
+
+            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
+
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName
+                    + "(id INTEGER PRIMARY KEY AUTOINCREMENT "
+                    + ", descricao VARCHAR(255) NOT NULL"
+                    + ", id_ano INTEGER NOT NULL,  FOREIGN KEY(id_ano) REFERENCES tb_ano(id))");
+
+
+
+            String str1 = "INSERT INTO " + tableName + " (descricao, id_ano) values (";
+            String str2 = ");";
+
+            db.beginTransaction();
+
+            while ((line = buffer.readLine()) != null) {
+                StringBuilder sb = new StringBuilder(str1);
+                String[] str = line.split(";");
+                /* sb.append("'" + str[0] + "',");
+                sb.append(str[1] + "',");
+                sb.append(str[2] + "',");
+                sb.append(str[3] + "'");
+                sb.append(str[4] + "'");*/
+
+                sb.append("'" + str[1] + "', ");
+                sb.append(str[0] + ")");
+                db.execSQL(sb.toString());
+
+            }
+            db.setTransactionSuccessful();
+            db.endTransaction();
+            db.close();
+            file.close();
+
+        }
+        catch(Exception ex)
+        {
+            Log.i("Erro: ", "ImportarAnos: ", ex);
+            db.close();
+
+        }
+
+
+    }
 
     private void ImportarAnos()
     {
@@ -105,9 +180,51 @@ public class MainActivity extends AppCompatActivity {
 
         listaAnos = (ListView) findViewById(R.id.lstAnos);
         btnRecriar = (Button) findViewById(R.id.btnRecreate);
+        btnAvancar = (Button) findViewById(R.id.btnAvancar);
+        btnImpDisciplinas = (Button) findViewById(R.id.btnImportDisciplinas);
+
+        listaAnos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                idSelecionado = ids.get(i);
+                btnAvancar.setEnabled(true);
+
+            }
+        });
 
         ListarAnos();
 
+
+        btnImpDisciplinas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int ano = 1;
+                for(int i = 16 ; i<= 18; i++)
+                {
+                    importarDisciplinas(i,ano);
+                    ano++;
+                }
+            }
+        });
+
+
+
+        btnAvancar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                switchActivities();
+            }
+
+            private void switchActivities() {
+
+                Intent switchActivityIntent = new Intent(MainActivity.this, actDisciplinas.class);
+                switchActivityIntent.putExtra("idSelecionado", idSelecionado.toString());
+                startActivity(switchActivityIntent);
+            }
+
+        });
 
         btnRecriar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void ListarAnos() {
         try {
@@ -181,8 +299,7 @@ public class MainActivity extends AppCompatActivity {
 
             }while (!cr.isLast());
         }
-        catch(Exception ex)
-        {
+        catch(Exception ex) {
             ex.printStackTrace();
         }
     }
