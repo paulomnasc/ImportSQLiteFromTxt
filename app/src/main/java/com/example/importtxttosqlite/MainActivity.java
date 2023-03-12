@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> descricoes;
 
     private ListView listaAnos;
+    private Button btnRecriar;
 
     MainActivity mContext = this;
 
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     {
 
 
-        //String fileName = "D:\\Users\\cblna\\Documents\\Paulo\\github\\ImportSQLiteFromTxt\\Data\\anosEM.CSV";
         String fileName = "anosEM.CSV";
         try
         {
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             String str2 = ");";
 
             db.beginTransaction();
+
             while ((line = buffer.readLine()) != null) {
                 StringBuilder sb = new StringBuilder(str1);
                 String[] str = line.split(";");
@@ -81,11 +82,15 @@ public class MainActivity extends AppCompatActivity {
             }
             db.setTransactionSuccessful();
             db.endTransaction();
+            db.close();
+            file.close();
 
         }
         catch(Exception ex)
         {
             Log.i("Erro: ", "ImportarAnos: ", ex);
+            db.close();
+
         }
 
 
@@ -99,10 +104,32 @@ public class MainActivity extends AppCompatActivity {
 
 
         listaAnos = (ListView) findViewById(R.id.lstAnos);
+        btnRecriar = (Button) findViewById(R.id.btnRecreate);
 
         ListarAnos();
 
 
+        btnRecriar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                File dbpath = mContext.getDatabasePath("StudyApp");
+
+                if (!dbpath.getParentFile().exists()) {
+                    dbpath.getParentFile().mkdirs();
+                }
+
+
+                try {
+                    db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
+
+                    db.execSQL("DELETE FROM " + tableName);
+                    db.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
     }
 
@@ -121,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
             Cursor cr = db.rawQuery("SELECT id, descricao FROM " + tableName , null );
 
-            if(cr==null)
+            if(cr.getCount() == 0)
                 ImportarAnos();
 
             int indColId = cr.getColumnIndex("id");
@@ -159,4 +186,7 @@ public class MainActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
     }
+
+
+
 }
