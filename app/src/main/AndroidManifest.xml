@@ -17,6 +17,11 @@
             android:label="@string/title_activity_act_disciplinas"
             android:theme="@style/Theme.ImportTxtToSQLite.NoActionBar" />
         <activity
+            android:name=".actConteudos"
+            android:exported="false"
+            android:label="actConteudos"
+            android:theme="@style/Theme.ImportTxtToSQLite.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

@@ -47,6 +47,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginBottom="4dp"
         android:text="Imp. Disciplinas"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/lstAnos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnRecreate"

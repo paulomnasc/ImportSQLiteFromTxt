@@ -4,25 +4,20 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.importtxttosqlite.databinding.ActivityActDisciplinasBinding;
-
 import java.io.File;
 import java.util.ArrayList;
 
-public class actDisciplinas extends AppCompatActivity {
+public class actConteudos extends AppCompatActivity {
 
     private ListView listaDisciplinas;
     private AppBarConfiguration appBarConfiguration;
@@ -33,8 +28,8 @@ public class actDisciplinas extends AppCompatActivity {
     private String idSelecionado;
 
     private SQLiteDatabase db;
-    actDisciplinas mContext = this;
-    private String tableName ="tb_disciplinas";
+    actConteudos mContext = this;
+    private String tableName ="tb_conteudos";
 
 
 
@@ -51,7 +46,7 @@ public class actDisciplinas extends AppCompatActivity {
         Intent intent= this.getIntent();
         idSelecionado = intent.getStringExtra("idSelecionado");
 
-        ListarDisciplinas(idSelecionado);
+        ListarConteudos();
 
     }
 
@@ -62,7 +57,7 @@ public class actDisciplinas extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private void ListarDisciplinas(String idAno) {
+    private void ListarConteudos() {
         try {
 
 
@@ -76,7 +71,7 @@ public class actDisciplinas extends AppCompatActivity {
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
 
             Cursor cr = db.rawQuery("SELECT id, descricao FROM "
-                    + tableName + " WHERE id_ano = " + idSelecionado , null );
+                    + tableName  , null );
 
             //if(cr.getCount() == 0)
            //     ImportarAnos();
