@@ -1,20 +1,11 @@
 package com.example.importtxttosqlite;
 
-import static android.content.ContentValues.TAG;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.database.Cursor;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ArrayAdapter;
-import android.database.sqlite.SQLiteDatabase;
-import android.content.Context;
-import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,7 +13,8 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+
+public class Imports extends AppCompatActivity {
 
     private SQLiteDatabase db;
     private String tableName ="tb_ano";
@@ -32,19 +24,62 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> ids;
     private ArrayList<String> descricoes;
 
-    private ListView listaAnos;
-    private Button btnRecriar;
+    private MainActivity mContext = null;
 
-    private Button btnAvancar;
+    public void setmContex(MainActivity context)
+    {
+        mContext = context;
+    }
 
-    private Button btnImpDisciplinas;
+    public boolean ImportarDados(){
 
-    MainActivity mContext = this;
+        DroparTabelas();
+        ImportarAnos();
+        ImportarConteudos();
 
-    private Integer idSelecionado;
+        ArrayList<Integer> arlAnos = ListarAnos();
+        for(int i = 0 ; i<= arlAnos.size()-1; i++)
+        {
+            ImportarDisciplinas(arlAnos.get(i),i+1);
+            i++;
+        }
 
-/*
-    private void importarDisciplinas(int idAno, int ano)
+
+        return  true;
+    }
+
+    private void DroparTabelas()
+    {
+
+        File dbpath = mContext.getDatabasePath("StudyApp");
+
+
+        if (!dbpath.getParentFile().exists()) {
+            dbpath.getParentFile().mkdirs();
+        }
+
+
+        try {
+            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
+            db.beginTransaction();
+            db.execSQL("DROP TABLE IF EXISTS tb_ano");
+            db.execSQL("DROP TABLE IF EXISTS tb_conteudos");
+            db.execSQL("DROP TABLE IF EXISTS tb_disciplinas");
+            db.setTransactionSuccessful();
+            db.endTransaction();
+            db.close();
+
+        } catch(Exception ex) {
+
+            Log.i("Erro: ", "ImportarAnos: ", ex);
+            db.close();
+        }
+
+
+    }
+
+
+    private void ImportarDisciplinas(int idAno, int ano)
     {
 
         tableName = "tb_disciplinas";
@@ -54,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         {
             //FileReader file = new FileReader(fileName);
 
-            InputStreamReader file = new InputStreamReader(getAssets()
+            InputStreamReader file = new InputStreamReader(mContext.getAssets()
                     .open(fileName));
 
             BufferedReader buffer = new BufferedReader(file);
@@ -85,8 +120,12 @@ public class MainActivity extends AppCompatActivity {
             while ((line = buffer.readLine()) != null) {
                 StringBuilder sb = new StringBuilder(str1);
                 String[] str = line.split(";");
-                */
-    /*
+                /* sb.append("'" + str[0] + "',");
+                sb.append(str[1] + "',");
+                sb.append(str[2] + "',");
+                sb.append(str[3] + "'");
+                sb.append(str[4] + "'");*/
+
                 sb.append("'" + str[1] + "', ");
                 sb.append("'" + str[0] + "', ");
                 sb.append("'" + str[2] + "')");
@@ -110,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void importarConteudos()
+    private void ImportarConteudos()
     {
 
         tableName = "tb_conteudos";
@@ -120,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         {
             //FileReader file = new FileReader(fileName);
 
-            InputStreamReader file = new InputStreamReader(getAssets()
+            InputStreamReader file = new InputStreamReader(mContext.getAssets()
                     .open(fileName));
 
             BufferedReader buffer = new BufferedReader(file);
@@ -156,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 sb.append(str[3] + "'");
                 sb.append(str[4] + "'");*/
 
-/*
+
                 db.execSQL(sb.toString());
 
             }
@@ -185,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         {
             //FileReader file = new FileReader(fileName);
 
-            InputStreamReader file = new InputStreamReader(getAssets()
+            InputStreamReader file = new InputStreamReader(mContext.getAssets()
                     .open(fileName));
 
             BufferedReader buffer = new BufferedReader(file);
@@ -215,9 +254,8 @@ public class MainActivity extends AppCompatActivity {
                 sb.append(str[1] + "',");
                 sb.append(str[2] + "',");
                 sb.append(str[3] + "'");
-                sb.append(str[4] + "'");
-*/
-    /*
+                sb.append(str[4] + "'");*/
+
                 sb.append("'" + str[0] + "'");
                 sb.append(str2);
                 db.execSQL(sb.toString());
@@ -235,84 +273,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
-    }
-    */
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
-        listaAnos = (ListView) findViewById(R.id.lstAnos);
-        btnRecriar = (Button) findViewById(R.id.btnRecreate);
-        btnAvancar = (Button) findViewById(R.id.btnAvancar);
-        /* btnImpDisciplinas = (Button) findViewById(R.id.btnImportDisciplinas);*/
-
-        listaAnos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                idSelecionado = ids.get(i);
-                btnAvancar.setEnabled(true);
-
-            }
-        });
-
-        ListarAnos();
-
-        /*
-        btnImpDisciplinas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /* Comentado para não regerar os id´s, pois daria erro
-                ArrayList<Integer> arlAnos = ListarAnos();
-                for(int i = 0 ; i<= arlAnos.size(); i++)
-                {
-                    importarDisciplinas(arlAnos.get(i),i+1);
-                    i++;
-                }
-
-                //importarConteudos();
-            }
-        });
-        */
-
-
-        btnAvancar.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                switchActivities();
-            }
-
-            private void switchActivities() {
-
-                /* Avançar para Conteudos */
-                Intent switchActivityIntent = new Intent(MainActivity.this, actConteudos.class);
-                switchActivityIntent.putExtra("idSelecionado", idSelecionado.toString());
-                startActivity(switchActivityIntent);
-
-                /* Avançar para Disciplinas
-                Intent switchActivityIntent = new Intent(MainActivity.this, actDisciplinas.class);
-                switchActivityIntent.putExtra("idSelecionado", idSelecionado.toString());
-                startActivity(switchActivityIntent);*/
-            }
-
-        });
-
-        btnRecriar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Imports importador = new Imports();
-                importador.setmContex(mContext);
-                importador.ImportarDados();
-
-
-            }
-        });
 
     }
 
@@ -340,12 +300,13 @@ public class MainActivity extends AppCompatActivity {
 
             descricoes = new ArrayList<String>();
             ids = new ArrayList<Integer>();
-            itensAdaptador= new ArrayAdapter<String>(getApplicationContext(),
+            /*itensAdaptador= new ArrayAdapter<String>(getApplicationContext(),
                     android.R.layout.simple_list_item_2
                     , android.R.id.text1
-                    , descricoes);
+                    , descricoes);*/
 
-            listaAnos.setAdapter(itensAdaptador);
+            //TODO: Remover
+            //listaAnos.setAdapter(itensAdaptador);
 
 
             cr.moveToFirst();
@@ -374,7 +335,5 @@ public class MainActivity extends AppCompatActivity {
 
         return ids;
     }
-
-
 
 }

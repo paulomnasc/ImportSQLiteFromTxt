@@ -31,7 +31,7 @@ public class actDisciplinas extends AppCompatActivity {
     private ArrayAdapter<String> itensAdaptador;
     private ArrayList<Integer> ids;
     private ArrayList<String> descricoes;
-    private String idDisciplina;
+    private String dsDisciplina;
     private String idAno;
 
     private SQLiteDatabase db;
@@ -53,10 +53,10 @@ public class actDisciplinas extends AppCompatActivity {
         //setSupportActionBar(binding.toolbar);
 
         Intent intent= this.getIntent();
-        idDisciplina = intent.getStringExtra("idConteudo");
+        dsDisciplina = intent.getStringExtra("dsConteudo");
         idAno = intent.getStringExtra("idAno");
 
-        ListarDisciplinas(idAno, idDisciplina);
+        ListarDisciplinas(idAno, dsDisciplina);
 
         btnAvancar.setOnClickListener(new View.OnClickListener(){
 
@@ -87,7 +87,7 @@ public class actDisciplinas extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }*/
 
-    private void ListarDisciplinas(String idAno, String idDisciplina) {
+    private void ListarDisciplinas(String idAno, String dsConteudo) {
         try {
 
 
@@ -102,7 +102,7 @@ public class actDisciplinas extends AppCompatActivity {
 
             Cursor cr = db.rawQuery("SELECT id, descricao_subitem FROM "
                     + tableName + " WHERE id_ano = " + idAno
-                    + " AND id = " + idDisciplina, null );
+                    + " AND descricao = '" + dsConteudo + "'", null );
 
             //if(cr.getCount() == 0)
            //     ImportarAnos();
@@ -121,23 +121,18 @@ public class actDisciplinas extends AppCompatActivity {
 
             if(cr.getCount() == 0){
                 Log.i("Logx", "A consulta não retornou registros");
+                return;
             }
-                cr.moveToFirst();
-            do
+
+            cr.moveToFirst();
+            for(int i = 0; i < cr.getCount();i++)
             {
-                Log.i("Logx", "ID" + cr.getString(indColId));
+                Log.i("Logx", "ID" + cr.getInt(indColId));
                 ids.add(cr.getInt(indColId));
                 Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
                 descricoes.add(cr.getString(indColDesc));
                 cr.moveToNext();
-                if(cr.isLast()) {
-                    Log.i("Logx", "ID" + cr.getString(indColId));
-                    ids.add(cr.getInt(indColId));
-                    Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
-                    descricoes.add(cr.getString(indColDesc));
-                }
-
-            }while (!cr.isLast());
+            }
         }
         catch(Exception ex) {
             ex.printStackTrace();
