@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.navigation.NavController;
@@ -30,13 +31,14 @@ public class actDisciplinas extends AppCompatActivity {
     private ArrayAdapter<String> itensAdaptador;
     private ArrayList<Integer> ids;
     private ArrayList<String> descricoes;
-    private String idSelecionado;
+    private String idDisciplina;
+    private String idAno;
 
     private SQLiteDatabase db;
     actDisciplinas mContext = this;
     private String tableName ="tb_disciplinas";
 
-
+    private Button btnAvancar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,25 +46,48 @@ public class actDisciplinas extends AppCompatActivity {
 
         setContentView(R.layout.activity_act_disciplinas);
 
+        btnAvancar = (Button) findViewById(R.id.btnAvancar);
+
         listaDisciplinas = (ListView) findViewById(R.id.lstDisciplinas);
 
         //setSupportActionBar(binding.toolbar);
 
         Intent intent= this.getIntent();
-        idSelecionado = intent.getStringExtra("idSelecionado");
+        idDisciplina = intent.getStringExtra("idConteudo");
+        idAno = intent.getStringExtra("idAno");
 
-        ListarDisciplinas(idSelecionado);
+        ListarDisciplinas(idAno, idDisciplina);
+
+        btnAvancar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                switchActivities();
+            }
+
+            private void switchActivities() {
+
+                /* Avançar para Conteudos */
+                //Intent switchActivityIntent = new Intent(actDisciplinas.this, actConteudos.class);
+                //switchActivityIntent.putExtra("idDisciplina", idDisciplina.toString());
+                //startActivity(switchActivityIntent);
+
+            }
+
+        });
 
     }
 
-    @Override
+
+
+    /*@Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_act_disciplinas);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
+    }*/
 
-    private void ListarDisciplinas(String idAno) {
+    private void ListarDisciplinas(String idAno, String idDisciplina) {
         try {
 
 
@@ -75,14 +100,15 @@ public class actDisciplinas extends AppCompatActivity {
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
 
-            Cursor cr = db.rawQuery("SELECT id, descricao FROM "
-                    + tableName + " WHERE id_ano = " + idSelecionado , null );
+            Cursor cr = db.rawQuery("SELECT id, descricao_subitem FROM "
+                    + tableName + " WHERE id_ano = " + idAno
+                    + " AND id = " + idDisciplina, null );
 
             //if(cr.getCount() == 0)
            //     ImportarAnos();
 
             int indColId = cr.getColumnIndex("id");
-            int indColDesc = cr.getColumnIndex("descricao");
+            int indColDesc = cr.getColumnIndex("descricao_subitem");
 
             descricoes = new ArrayList<String>();
             ids = new ArrayList<Integer>();
@@ -93,8 +119,10 @@ public class actDisciplinas extends AppCompatActivity {
 
             listaDisciplinas.setAdapter(itensAdaptador);
 
-
-            cr.moveToFirst();
+            if(cr.getCount() == 0){
+                Log.i("Logx", "A consulta não retornou registros");
+            }
+                cr.moveToFirst();
             do
             {
                 Log.i("Logx", "ID" + cr.getString(indColId));

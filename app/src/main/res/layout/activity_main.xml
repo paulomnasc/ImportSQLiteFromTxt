@@ -25,8 +25,8 @@
         android:id="@+id/btnRecreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TRUNCATE tb_Anos"
-        android:visibility="invisible"
+        android:text="TRUNCATE"
+        android:visibility="visible"
         tools:layout_editor_absoluteX="33dp" />
 
     <Button
@@ -47,7 +47,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginBottom="4dp"
         android:text="Imp. Disciplinas"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/lstAnos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnRecreate"

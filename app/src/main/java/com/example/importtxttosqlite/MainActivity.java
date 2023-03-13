@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 sb.append(str[4] + "'");*/
 
                 sb.append("'" + str[1] + "', ");
-                sb.append(str[0] + ")");
-                sb.append(str[2] + ")");
+                sb.append("'" + str[0] + "', ");
+                sb.append("'" + str[2] + "')");
                 db.execSQL(sb.toString());
 
             }
@@ -269,15 +269,15 @@ public class MainActivity extends AppCompatActivity {
         btnImpDisciplinas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /* Comentado para não regerar os id´s, pois daria erro
-                int ano = 1;
-                for(int i = 16 ; i<= 18; i++)
+                /* Comentado para não regerar os id´s, pois daria erro*/
+                ArrayList<Integer> arlAnos = ListarAnos();
+                for(int i = 0 ; i<= arlAnos.size(); i++)
                 {
-                    importarDisciplinas(i,ano);
-                    ano++;
+                    importarDisciplinas(arlAnos.get(i),i+1);
+                    i++;
                 }
-                */
-                importarConteudos();
+
+                //importarConteudos();
             }
         });
 
@@ -294,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
 
                 /* Avançar para Conteudos */
                 Intent switchActivityIntent = new Intent(MainActivity.this, actConteudos.class);
+                switchActivityIntent.putExtra("idSelecionado", idSelecionado.toString());
                 startActivity(switchActivityIntent);
 
                 /* Avançar para Disciplinas
@@ -318,10 +319,10 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
 
-                    db.execSQL("DELETE FROM " + "tb_ano");
-                    db.close();
-
-                    db.execSQL("DELETE FROM " + "tb_disciplinas");
+                    /*db.execSQL("DELETE FROM " + "tb_ano");
+                    db.close();*/
+                    db.execSQL("DROP TABLE tb_disciplinas");
+                    //db.execSQL("DELETE FROM " + "tb_disciplinas");
                     db.close();
 
                 } catch (Exception ex) {
@@ -333,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void ListarAnos() {
+    private ArrayList<Integer> ListarAnos() {
         try {
 
 
@@ -348,8 +349,8 @@ public class MainActivity extends AppCompatActivity {
 
             Cursor cr = db.rawQuery("SELECT id, descricao FROM " + tableName , null );
 
-            if(cr.getCount() == 0)
-                ImportarAnos();
+            /*if(cr.getCount() == 0)
+                ImportarAnos();*/
 
             int indColId = cr.getColumnIndex("id");
             int indColDesc = cr.getColumnIndex("descricao");
@@ -380,10 +381,15 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }while (!cr.isLast());
+
+
+
         }
         catch(Exception ex) {
             ex.printStackTrace();
         }
+
+        return ids;
     }
 
 

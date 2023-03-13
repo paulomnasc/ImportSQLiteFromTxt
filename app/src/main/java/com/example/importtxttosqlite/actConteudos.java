@@ -5,7 +5,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,43 +22,73 @@ import java.util.ArrayList;
 
 public class actConteudos extends AppCompatActivity {
 
-    private ListView listaDisciplinas;
+    private ListView listaConteudos;
     private AppBarConfiguration appBarConfiguration;
 
     private ArrayAdapter<String> itensAdaptador;
     private ArrayList<Integer> ids;
     private ArrayList<String> descricoes;
     private String idSelecionado;
+    private String idAno;
 
     private SQLiteDatabase db;
     actConteudos mContext = this;
     private String tableName ="tb_conteudos";
 
-
+    private Button btnAvancar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_act_disciplinas);
+        setContentView(R.layout.activity_act_conteudos);
 
-        listaDisciplinas = (ListView) findViewById(R.id.lstDisciplinas);
+        btnAvancar = (Button) findViewById(R.id.btnAvancar);
+
+        listaConteudos = (ListView) findViewById(R.id.lstConteudos);
 
         //setSupportActionBar(binding.toolbar);
 
         Intent intent= this.getIntent();
-        idSelecionado = intent.getStringExtra("idSelecionado");
+        idAno = intent.getStringExtra("idSelecionado");
 
         ListarConteudos();
 
+        listaConteudos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                idSelecionado = ids.get(i).toString();
+                btnAvancar.setEnabled(true);
+
+            }
+        });
+
+        btnAvancar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                switchActivities();
+            }
+
+            private void switchActivities() {
+
+                /* Avançar para Conteudos */
+                Intent switchActivityIntent = new Intent(actConteudos.this, actDisciplinas.class);
+                switchActivityIntent.putExtra("idAno", idAno.toString());
+                switchActivityIntent.putExtra("idConteudo", idSelecionado.toString());
+                startActivity(switchActivityIntent);
+
+                /* Avançar para Disciplinas
+                Intent switchActivityIntent = new Intent(MainActivity.this, actDisciplinas.class);
+                switchActivityIntent.putExtra("idSelecionado", idSelecionado.toString());
+                startActivity(switchActivityIntent);*/
+            }
+
+        });
+
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_act_disciplinas);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
 
     private void ListarConteudos() {
         try {
@@ -86,7 +119,7 @@ public class actConteudos extends AppCompatActivity {
                     , android.R.id.text1
                     , descricoes);
 
-            listaDisciplinas.setAdapter(itensAdaptador);
+            listaConteudos.setAdapter(itensAdaptador);
 
 
             cr.moveToFirst();

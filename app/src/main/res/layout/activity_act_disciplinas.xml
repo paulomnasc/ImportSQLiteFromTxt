@@ -9,7 +9,18 @@
     <ListView
         android:id="@+id/lstDisciplinas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="664dp"
         tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/btnAvancar"
+        android:layout_width="119dp"
+        android:layout_height="65dp"
+        android:enabled="false"
+        android:text="Próximo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lstDisciplinas" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
