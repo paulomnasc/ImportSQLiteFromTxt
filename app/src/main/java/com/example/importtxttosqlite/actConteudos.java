@@ -37,6 +37,7 @@ public class actConteudos extends AppCompatActivity {
     private String tableName ="tb_conteudos";
 
     private Button btnAvancar;
+    private Button btnVoltar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class actConteudos extends AppCompatActivity {
         setContentView(R.layout.activity_act_conteudos);
 
         btnAvancar = (Button) findViewById(R.id.btnAvancar);
+        btnVoltar = (Button) findViewById(R.id.btnVoltar);
 
         listaConteudos = (ListView) findViewById(R.id.lstConteudos);
 
@@ -69,10 +71,10 @@ public class actConteudos extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                switchActivities();
+                FormMoveNext();
             }
 
-            private void switchActivities() {
+            private void FormMoveNext() {
 
                 /* Avançar para Conteudos */
                 Intent switchActivityIntent = new Intent(actConteudos.this, actDisciplinas.class);
@@ -80,11 +82,27 @@ public class actConteudos extends AppCompatActivity {
                 switchActivityIntent.putExtra("idConteudo", idSelecionado.toString());
                 startActivity(switchActivityIntent);
 
-                /* Avançar para Disciplinas
-                Intent switchActivityIntent = new Intent(MainActivity.this, actDisciplinas.class);
-                switchActivityIntent.putExtra("idSelecionado", idSelecionado.toString());
-                startActivity(switchActivityIntent);*/
             }
+
+
+        });
+
+        btnVoltar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                FormMovePrevious();
+            }
+
+
+            private void FormMovePrevious() {
+
+                /* Retornar para Lista de Anos */
+                Intent switchActivityIntent = new Intent(actConteudos.this, MainActivity.class);
+                startActivity(switchActivityIntent);
+
+            }
+
 
         });
 

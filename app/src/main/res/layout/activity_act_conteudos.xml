@@ -6,20 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".actConteudos">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo_telaConteudos"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/lstConteudos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/lstConteudos"
-        android:layout_width="402dp"
-        android:layout_height="473dp"
+        android:layout_width="408dp"
+        android:layout_height="508dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="130dp"
+        android:listSelector="@color/teal_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.57" />
 
 
     <Button
@@ -27,10 +37,25 @@
         android:layout_width="119dp"
         android:layout_height="65dp"
         android:enabled="false"
-        android:text="Próximo"
+        android:text="@string/proximo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.839"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lstConteudos" />
+        app:layout_constraintTop_toBottomOf="@+id/lstConteudos"
+        app:layout_constraintVertical_bias="0.79" />
+
+    <Button
+        android:id="@+id/btnVoltar"
+        android:layout_width="119dp"
+        android:layout_height="65dp"
+        android:enabled="true"
+        android:text="@string/voltar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.109"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lstConteudos"
+        app:layout_constraintVertical_bias="0.79" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

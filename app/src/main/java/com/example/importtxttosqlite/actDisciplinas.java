@@ -39,7 +39,7 @@ public class actDisciplinas extends AppCompatActivity {
     private String tableName ="tb_disciplinas";
 
     private Button btnAvancar;
-
+    private Button btnVoltar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +47,7 @@ public class actDisciplinas extends AppCompatActivity {
         setContentView(R.layout.activity_act_disciplinas);
 
         btnAvancar = (Button) findViewById(R.id.btnAvancar);
+        btnVoltar = (Button) findViewById(R.id.btnVoltar);
 
         listaDisciplinas = (ListView) findViewById(R.id.lstDisciplinas);
 
@@ -62,17 +63,35 @@ public class actDisciplinas extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                switchActivities();
+                FormMovePrevious();
             }
 
-            private void switchActivities() {
+            private void FormMovePrevious() {
 
-                /* Avançar para Conteudos */
-                //Intent switchActivityIntent = new Intent(actDisciplinas.this, actConteudos.class);
-                //switchActivityIntent.putExtra("idDisciplina", idDisciplina.toString());
-                //startActivity(switchActivityIntent);
+                Intent switchActivityIntent = new Intent(actDisciplinas.this, actConteudos.class);
+                switchActivityIntent.putExtra("idAno", idAno.toString());
+                startActivity(switchActivityIntent);
 
             }
+
+        });
+
+        btnVoltar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                FormMovePrevious();
+            }
+
+
+            private void FormMovePrevious() {
+
+                /* Retornar para Lista de Anos */
+                Intent switchActivityIntent = new Intent(actDisciplinas.this, actConteudos.class);
+                startActivity(switchActivityIntent);
+
+            }
+
 
         });
 
