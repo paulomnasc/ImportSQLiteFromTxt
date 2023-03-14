@@ -99,7 +99,7 @@ public class actDisciplinas extends AppCompatActivity {
 
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
+            db.execSQL("PRAGMA encoding = 'UTF-8'");
             Cursor cr = db.rawQuery("SELECT id, descricao_subitem FROM "
                     + tableName + " WHERE id_ano = " + idAno
                     + " AND id_conteudo = '" + idConteudo + "'", null );

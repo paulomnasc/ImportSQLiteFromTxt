@@ -62,6 +62,9 @@ public class Imports extends AppCompatActivity {
         try {
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
             db.beginTransaction();
+
+            db.execSQL("PRAGMA encoding = 'UTF-8'");
+
             db.execSQL("DROP TABLE IF EXISTS tb_ano");
             db.execSQL("DROP TABLE IF EXISTS tb_conteudos");
             db.execSQL("DROP TABLE IF EXISTS tb_disciplinas");
@@ -105,7 +108,7 @@ public class Imports extends AppCompatActivity {
             }
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
+            db.execSQL("PRAGMA encoding = 'UTF-8'");
             db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName
                     + "(id INTEGER PRIMARY KEY AUTOINCREMENT "
                     + ", descricao VARCHAR(255) NOT NULL"
@@ -175,7 +178,7 @@ public class Imports extends AppCompatActivity {
             }
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
+            db.execSQL("PRAGMA encoding = 'UTF-8'");
             db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName
                     + "(id INTEGER PRIMARY KEY AUTOINCREMENT "
                     + ", descricao VARCHAR(255) NOT NULL"
@@ -235,7 +238,7 @@ public class Imports extends AppCompatActivity {
             }
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
+            db.execSQL("PRAGMA encoding = 'UTF-8'");
             db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName + "(id INTEGER PRIMARY KEY AUTOINCREMENT, descricao VARCHAR(255) NOT NULL)");
 
 
@@ -281,7 +284,7 @@ public class Imports extends AppCompatActivity {
 
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
+            db.execSQL("PRAGMA encoding = 'UTF-8'");
             Cursor cr = db.rawQuery("SELECT id, descricao FROM tb_conteudos" , null );
 
 
@@ -338,7 +341,7 @@ public class Imports extends AppCompatActivity {
 
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
+            db.execSQL("PRAGMA encoding = 'UTF-8'");
             Cursor cr = db.rawQuery("SELECT id, descricao FROM tb_ano" , null );
 
             /*if(cr.getCount() == 0)

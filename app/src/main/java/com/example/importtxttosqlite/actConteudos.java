@@ -103,7 +103,7 @@ public class actConteudos extends AppCompatActivity {
 
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
+            db.execSQL("PRAGMA encoding = 'UTF-8'");
             Cursor cr = db.rawQuery("SELECT id, descricao FROM "
                     + tableName  , null );
 

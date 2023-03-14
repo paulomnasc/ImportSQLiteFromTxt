@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
+            db.execSQL("PRAGMA encoding = 'UTF-8'");
             Cursor cr = db.rawQuery("SELECT id, descricao FROM " + tableName , null );
 
             /*if(cr.getCount() == 0)
