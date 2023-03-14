@@ -1,0 +1,5 @@
+select * from tb_ano;
+
+SELECT * from tb_conteudos;
+
+SELECT * from tb_disciplinas where id_ano = 3;

@@ -43,7 +43,7 @@ public class actDisciplinas extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        String idConteudo;
         setContentView(R.layout.activity_act_disciplinas);
 
         btnAvancar = (Button) findViewById(R.id.btnAvancar);
@@ -53,10 +53,10 @@ public class actDisciplinas extends AppCompatActivity {
         //setSupportActionBar(binding.toolbar);
 
         Intent intent= this.getIntent();
-        dsDisciplina = intent.getStringExtra("dsConteudo");
+        idConteudo = intent.getStringExtra("idConteudo");
         idAno = intent.getStringExtra("idAno");
 
-        ListarDisciplinas(idAno, dsDisciplina);
+        ListarDisciplinas(idAno, idConteudo);
 
         btnAvancar.setOnClickListener(new View.OnClickListener(){
 
@@ -87,7 +87,7 @@ public class actDisciplinas extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }*/
 
-    private void ListarDisciplinas(String idAno, String dsConteudo) {
+    private void ListarDisciplinas(String idAno, String idConteudo) {
         try {
 
 
@@ -102,7 +102,7 @@ public class actDisciplinas extends AppCompatActivity {
 
             Cursor cr = db.rawQuery("SELECT id, descricao_subitem FROM "
                     + tableName + " WHERE id_ano = " + idAno
-                    + " AND descricao = '" + dsConteudo + "'", null );
+                    + " AND id_conteudo = '" + idConteudo + "'", null );
 
             //if(cr.getCount() == 0)
            //     ImportarAnos();

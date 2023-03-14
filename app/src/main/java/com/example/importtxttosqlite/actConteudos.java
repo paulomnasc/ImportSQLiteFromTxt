@@ -27,6 +27,7 @@ public class actConteudos extends AppCompatActivity {
 
     private ArrayAdapter<String> itensAdaptador;
     private ArrayList<Integer> ids;
+
     private ArrayList<String> descricoes;
     private String idSelecionado;
     private String idAno;
@@ -58,7 +59,7 @@ public class actConteudos extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                idSelecionado = descricoes.get(i).toString();
+                idSelecionado = ids.get(i).toString();
                 btnAvancar.setEnabled(true);
 
             }
@@ -76,7 +77,7 @@ public class actConteudos extends AppCompatActivity {
                 /* Avançar para Conteudos */
                 Intent switchActivityIntent = new Intent(actConteudos.this, actDisciplinas.class);
                 switchActivityIntent.putExtra("idAno", idAno.toString());
-                switchActivityIntent.putExtra("dsConteudo", idSelecionado.toString());
+                switchActivityIntent.putExtra("idConteudo", idSelecionado.toString());
                 startActivity(switchActivityIntent);
 
                 /* Avançar para Disciplinas
