@@ -1,0 +1,7 @@
+select * from tb_ano;
+
+SELECT * from tb_conteudos;
+
+SELECT * from tb_disciplinas where id_ano = 3;
+
+SELECT id, descricao_subitem FROM tb_disciplinas WHERE id_ano = 1 AND id_conteudo = '3'

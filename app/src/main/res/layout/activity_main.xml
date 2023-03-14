@@ -8,24 +8,48 @@
 
     <ListView
         android:id="@+id/lstAnos"
-        android:layout_width="404dp"
-        android:layout_height="631dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="413dp"
+        android:layout_height="507dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="130dp"
+        android:listSelector="@color/teal_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.24000001" />
 
     <Button
         android:id="@+id/btnRecreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TRUNCATE tb_Anos"
-        tools:layout_editor_absoluteX="33dp" />
+        android:text="Importar Dados"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnAvancar"
+        android:layout_width="119dp"
+        android:layout_height="65dp"
+        android:enabled="false"
+        android:text="@string/proximo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lstAnos" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo_telaAnos"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/lstAnos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
