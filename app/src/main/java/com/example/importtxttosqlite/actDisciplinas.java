@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -63,16 +64,47 @@ public class actDisciplinas extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                FormMovePrevious();
+                FormMoveNext();
             }
 
-            private void FormMovePrevious() {
+            private void FormMoveNext() {
 
                 Intent switchActivityIntent = new Intent(actDisciplinas.this, actConteudos.class);
                 switchActivityIntent.putExtra("idAno", idAno.toString());
                 startActivity(switchActivityIntent);
 
             }
+
+        });
+
+        listaDisciplinas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                dsDisciplina = descricoes.get(i).toString();
+                btnAvancar.setEnabled(true);
+
+            }
+        });
+
+        btnAvancar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                FormMoveNext();
+            }
+
+            private void FormMoveNext() {
+
+                /* Avançar para Conteudos */
+                Intent switchActivityIntent = new Intent(actDisciplinas.this, actSelecQuestoes.class);
+                switchActivityIntent.putExtra("dsDisciplina", dsDisciplina.toString());
+                switchActivityIntent.putExtra("idAno", idAno.toString());
+                switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
+                startActivity(switchActivityIntent);
+
+            }
+
 
         });
 
@@ -88,6 +120,8 @@ public class actDisciplinas extends AppCompatActivity {
 
                 /* Retornar para Lista de Anos */
                 Intent switchActivityIntent = new Intent(actDisciplinas.this, actConteudos.class);
+                switchActivityIntent.putExtra("idAno", idAno.toString());
+                switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
                 startActivity(switchActivityIntent);
 
             }
@@ -99,12 +133,7 @@ public class actDisciplinas extends AppCompatActivity {
 
 
 
-    /*@Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_act_disciplinas);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }*/
+
 
     private void ListarDisciplinas(String idAno, String idConteudo) {
         try {

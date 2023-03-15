@@ -12,6 +12,11 @@
         android:theme="@style/Theme.ImportTxtToSQLite"
         tools:targetApi="31">
         <activity
+            android:name=".actSelecQuestoes"
+            android:exported="false"
+            android:label="@string/title_activity_act_selec_questoes"
+            android:theme="@style/Theme.ImportTxtToSQLite.NoActionBar" />
+        <activity
             android:name=".actDisciplinas"
             android:exported="false"
             android:label="@string/title_activity_act_disciplinas"
