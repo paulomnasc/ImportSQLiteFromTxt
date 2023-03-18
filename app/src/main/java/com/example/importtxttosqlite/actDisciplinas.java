@@ -14,12 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.importtxttosqlite.databinding.ActivityActDisciplinasBinding;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -52,8 +47,6 @@ public class actDisciplinas extends AppCompatActivity {
 
         listaDisciplinas = (ListView) findViewById(R.id.lstDisciplinas);
 
-        //setSupportActionBar(binding.toolbar);
-
         Intent intent= this.getIntent();
         idConteudo = intent.getStringExtra("idConteudo");
         idAno = intent.getStringExtra("idAno");
@@ -81,7 +74,7 @@ public class actDisciplinas extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                dsDisciplina = descricoes.get(i).toString();
+                dsDisciplina = descricoes.get(i);
                 btnAvancar.setEnabled(true);
 
             }
