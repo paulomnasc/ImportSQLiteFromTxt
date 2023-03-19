@@ -1,19 +1,22 @@
 package com.example.importtxttosqlite;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.BufferedReader;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.database.sqlite.SQLiteDatabase;
+import android.widget.ListView;
+
 import java.io.File;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-
-public class Imports extends AppCompatActivity {
+public class actAnos extends AppCompatActivity {
 
     private SQLiteDatabase db;
     private String tableName ="tb_ano";
@@ -23,77 +26,29 @@ public class Imports extends AppCompatActivity {
     private ArrayList<Integer> ids;
     private ArrayList<String> descricoes;
 
-    private actAnos mContext = null;
+    private ListView listaAnos;
+    private Button btnRecriar;
 
-    public void setmContex(actAnos context)
+    private Button btnAvancar;
+
+    private Button btnImpDisciplinas;
+
+    actAnos mContext = this;
+
+    private Integer idSelecionado;
+
+/*
+    private void importarDisciplinas(int idAno, int ano)
     {
-        mContext = context;
-    }
-
-    public boolean ImportarDados(){
-
-        DroparTabelas();
-        ImportarAnos();
-        ImportarConteudos();
-
-        ArrayList<Integer> arlAnos = ListarAnos();
-
-        for(int i = 0 ; i<= arlAnos.size()-1; i++)
-        {
-            ImportarDisciplinas(arlAnos.get(i),i);
-        }
-
-
-        return  true;
-    }
-
-    private void DroparTabelas()
-    {
-
-        File dbpath = mContext.getDatabasePath("StudyApp");
-
-
-        if (!dbpath.getParentFile().exists()) {
-            dbpath.getParentFile().mkdirs();
-        }
-
-
-        try {
-            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-            db.beginTransaction();
-
-            db.execSQL("PRAGMA encoding = 'UTF-8'");
-
-            db.execSQL("DROP TABLE IF EXISTS tb_ano");
-            db.execSQL("DROP TABLE IF EXISTS tb_conteudos");
-            db.execSQL("DROP TABLE IF EXISTS tb_disciplinas");
-            db.setTransactionSuccessful();
-            db.endTransaction();
-            db.close();
-
-        } catch(Exception ex) {
-
-            Log.i("Erro: ", "ImportarAnos: ", ex);
-            db.close();
-        }
-
-
-    }
-
-
-    private void ImportarDisciplinas(int idAno, int ano)
-    {
-
-
 
         tableName = "tb_disciplinas";
 
-        String fileName = "Disciplicinas" + (ano +1) + "EM.CSV";
+        String fileName = "Disciplicinas" + ano + "EM.CSV";
         try
         {
             //FileReader file = new FileReader(fileName);
 
-            InputStreamReader file = new InputStreamReader(mContext.getAssets()
+            InputStreamReader file = new InputStreamReader(getAssets()
                     .open(fileName));
 
             BufferedReader buffer = new BufferedReader(file);
@@ -107,18 +62,16 @@ public class Imports extends AppCompatActivity {
             }
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-            db.execSQL("PRAGMA encoding = 'UTF-8'");
+
             db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName
                     + "(id INTEGER PRIMARY KEY AUTOINCREMENT "
                     + ", descricao VARCHAR(255) NOT NULL"
                     + ", descricao_subitem VARCHAR(255) NOT NULL"
-                    + ", id_ano INTEGER NOT NULL, id_conteudo INTEGER NOT NULL"
-                    + ", FOREIGN KEY(id_ano) REFERENCES tb_ano(id)"
-                    + ", FOREIGN KEY(id_conteudo) REFERENCES tb_conteudos(id))");
+                    + ", id_ano INTEGER NOT NULL,  FOREIGN KEY(id_ano) REFERENCES tb_ano(id))");
 
 
 
-            String str1 = "INSERT INTO " + tableName + " (descricao, id_ano, descricao_subitem, id_conteudo) values (";
+            String str1 = "INSERT INTO " + tableName + " (descricao, id_ano, descricao_subitem) values (";
             String str2 = ");";
 
             db.beginTransaction();
@@ -126,14 +79,12 @@ public class Imports extends AppCompatActivity {
             while ((line = buffer.readLine()) != null) {
                 StringBuilder sb = new StringBuilder(str1);
                 String[] str = line.split(";");
-
+                */
+    /*
                 sb.append("'" + str[1] + "', ");
-                //idAno tem que obter da base de dados
-                sb.append("'" + idAno + "', ");
-                sb.append("'" + str[2] + "', ");
-                sb.append("'" + str[0] + "')");
+                sb.append("'" + str[0] + "', ");
+                sb.append("'" + str[2] + "')");
                 db.execSQL(sb.toString());
-                Log.i("Msg: ", "Importar: " + sb.toString());
 
             }
             db.setTransactionSuccessful();
@@ -153,7 +104,7 @@ public class Imports extends AppCompatActivity {
     }
 
 
-    private void ImportarConteudos()
+    private void importarConteudos()
     {
 
         tableName = "tb_conteudos";
@@ -163,7 +114,7 @@ public class Imports extends AppCompatActivity {
         {
             //FileReader file = new FileReader(fileName);
 
-            InputStreamReader file = new InputStreamReader(mContext.getAssets()
+            InputStreamReader file = new InputStreamReader(getAssets()
                     .open(fileName));
 
             BufferedReader buffer = new BufferedReader(file);
@@ -177,7 +128,7 @@ public class Imports extends AppCompatActivity {
             }
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-            db.execSQL("PRAGMA encoding = 'UTF-8'");
+
             db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName
                     + "(id INTEGER PRIMARY KEY AUTOINCREMENT "
                     + ", descricao VARCHAR(255) NOT NULL"
@@ -192,10 +143,15 @@ public class Imports extends AppCompatActivity {
 
             while ((line = buffer.readLine()) != null) {
                 StringBuilder sb = new StringBuilder(str1);
+                //String[] str = line.split(";");
                 sb.append("'" + line + "')");
+                /*sb.append(str[1] + "',");
+                sb.append(str[2] + "',");
+                sb.append(str[3] + "'");
+                sb.append(str[4] + "'");*/
 
+/*
                 db.execSQL(sb.toString());
-                Log.i("Msg: ", "Importar: " + sb.toString());
 
             }
             db.setTransactionSuccessful();
@@ -223,7 +179,7 @@ public class Imports extends AppCompatActivity {
         {
             //FileReader file = new FileReader(fileName);
 
-            InputStreamReader file = new InputStreamReader(mContext.getAssets()
+            InputStreamReader file = new InputStreamReader(getAssets()
                     .open(fileName));
 
             BufferedReader buffer = new BufferedReader(file);
@@ -237,7 +193,7 @@ public class Imports extends AppCompatActivity {
             }
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-            db.execSQL("PRAGMA encoding = 'UTF-8'");
+
             db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName + "(id INTEGER PRIMARY KEY AUTOINCREMENT, descricao VARCHAR(255) NOT NULL)");
 
 
@@ -249,11 +205,16 @@ public class Imports extends AppCompatActivity {
             while ((line = buffer.readLine()) != null) {
                 StringBuilder sb = new StringBuilder(str1);
                 String[] str = line.split(";");
-
+                /* sb.append("'" + str[0] + "',");
+                sb.append(str[1] + "',");
+                sb.append(str[2] + "',");
+                sb.append(str[3] + "'");
+                sb.append(str[4] + "'");
+*/
+    /*
                 sb.append("'" + str[0] + "'");
                 sb.append(str2);
                 db.execSQL(sb.toString());
-                Log.i("Msg: ", "Importar: " + sb.toString());
             }
             db.setTransactionSuccessful();
             db.endTransaction();
@@ -270,63 +231,85 @@ public class Imports extends AppCompatActivity {
 
 
     }
+    */
 
-    private ArrayList<Integer> ListarConteudos(int idAno) {
-        try {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_act_anos);
 
 
-            File dbpath = mContext.getDatabasePath("StudyApp");
+        listaAnos = (ListView) findViewById(R.id.lstAnos);
+        btnRecriar = (Button) findViewById(R.id.btnRecreate);
+        btnAvancar = (Button) findViewById(R.id.btnAvancar);
+        /* btnImpDisciplinas = (Button) findViewById(R.id.btnImportDisciplinas);*/
 
-            if (!dbpath.getParentFile().exists()) {
-                dbpath.getParentFile().mkdirs();
+        listaAnos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                idSelecionado = ids.get(i);
+                btnAvancar.setEnabled(true);
+
             }
+        });
 
+        ListarAnos();
 
-            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-            db.execSQL("PRAGMA encoding = 'UTF-8'");
-            Cursor cr = db.rawQuery("SELECT id, descricao FROM tb_conteudos" , null );
-
-
-            int indColId = cr.getColumnIndex("id");
-            int indColDesc = cr.getColumnIndex("descricao");
-
-            descricoes = new ArrayList<String>();
-            ids = new ArrayList<Integer>();
-            /*itensAdaptador= new ArrayAdapter<String>(getApplicationContext(),
-                    android.R.layout.simple_list_item_2
-                    , android.R.id.text1
-                    , descricoes);*/
-
-            //TODO: Remover
-            //listaAnos.setAdapter(itensAdaptador);
-
-
-            cr.moveToFirst();
-            do
-            {
-                Log.i("Logx", "ID" + cr.getString(indColId));
-                ids.add(cr.getInt(indColId));
-                Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
-                descricoes.add(cr.getString(indColDesc));
-                cr.moveToNext();
-                if(cr.isLast()) {
-                    Log.i("Logx", "ID" + cr.getString(indColId));
-                    ids.add(cr.getInt(indColId));
-                    Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
-                    descricoes.add(cr.getString(indColDesc));
+        /*
+        btnImpDisciplinas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /* Comentado para não regerar os id´s, pois daria erro
+                ArrayList<Integer> arlAnos = ListarAnos();
+                for(int i = 0 ; i<= arlAnos.size(); i++)
+                {
+                    importarDisciplinas(arlAnos.get(i),i+1);
+                    i++;
                 }
 
-            }while (!cr.isLast());
+                //importarConteudos();
+            }
+        });
+        */
 
 
+        btnAvancar.setOnClickListener(new View.OnClickListener(){
 
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-        }
+            @Override
+            public void onClick(View view) {
+                switchActivities();
+            }
 
-        return ids;
+            private void switchActivities() {
+
+                /* Avançar para Conteudos */
+                Intent switchActivityIntent = new Intent(actAnos.this, actConteudos.class);
+                switchActivityIntent.putExtra("idSelecionado", idSelecionado.toString());
+                startActivity(switchActivityIntent);
+
+                /* Avançar para Disciplinas
+                Intent switchActivityIntent = new Intent(MainActivity.this, actDisciplinas.class);
+                switchActivityIntent.putExtra("idSelecionado", idSelecionado.toString());
+                startActivity(switchActivityIntent);*/
+            }
+
+        });
+
+        btnRecriar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Imports importador = new Imports();
+                importador.setmContex(mContext);
+                importador.ImportarDados();
+
+
+            }
+        });
+
     }
+
 
     private ArrayList<Integer> ListarAnos() {
         try {
@@ -341,7 +324,7 @@ public class Imports extends AppCompatActivity {
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
             db.execSQL("PRAGMA encoding = 'UTF-8'");
-            Cursor cr = db.rawQuery("SELECT id, descricao FROM tb_ano" , null );
+            Cursor cr = db.rawQuery("SELECT id, descricao FROM " + tableName , null );
 
             /*if(cr.getCount() == 0)
                 ImportarAnos();*/
@@ -351,13 +334,12 @@ public class Imports extends AppCompatActivity {
 
             descricoes = new ArrayList<String>();
             ids = new ArrayList<Integer>();
-            /*itensAdaptador= new ArrayAdapter<String>(getApplicationContext(),
+            itensAdaptador= new ArrayAdapter<String>(getApplicationContext(),
                     android.R.layout.simple_list_item_2
                     , android.R.id.text1
-                    , descricoes);*/
+                    , descricoes);
 
-            //TODO: Remover
-            //listaAnos.setAdapter(itensAdaptador);
+            listaAnos.setAdapter(itensAdaptador);
 
 
             cr.moveToFirst();
@@ -386,5 +368,7 @@ public class Imports extends AppCompatActivity {
 
         return ids;
     }
+
+
 
 }
