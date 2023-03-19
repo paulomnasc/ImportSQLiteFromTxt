@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -60,7 +61,7 @@ public class actSelecQuestoes extends AppCompatActivity {
             private void FormMoveNext() {
 
                 /* Avançar para Conteudos */
-                Intent switchActivityIntent = new Intent(actSelecQuestoes.this, actDoChatBot.class);
+                Intent switchActivityIntent = new Intent(actSelecQuestoes.this, MainActivity.class);
                 switchActivityIntent.putExtra("dsDisciplina", dsDisciplina);
                 switchActivityIntent.putExtra("idAno", idAno.toString());
                 switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
@@ -70,6 +71,16 @@ public class actSelecQuestoes extends AppCompatActivity {
             }
 
 
+        });
+
+        listaQuestions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                question = questions.get(i);
+                btnAvancar.setEnabled(true);
+
+            }
         });
 
         btnVoltar.setOnClickListener(new View.OnClickListener(){
@@ -102,7 +113,7 @@ public class actSelecQuestoes extends AppCompatActivity {
 
 
 
-        question = "Me faça um resumo do conteúdo de estudo de " + txtAssunto.getText();
+        question = "Cite as 20 dúvidas frequentes de " + txtAssunto.getText();
 
         questions.add(question);
 

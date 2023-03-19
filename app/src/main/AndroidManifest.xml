@@ -19,9 +19,9 @@
             android:label="@string/title_activity_act_selec_questoes"
             android:theme="@style/Theme.ImportTxtToSQLite.NoActionBar" />
         <activity
-            android:name=".actAnos"
+            android:name=".MainActivity"
             android:exported="false"
-            android:label="actAnos"
+            android:label="@string/titulo_chatBot"
             android:theme="@style/Theme.ImportTxtToSQLite.NoActionBar" />
         <activity
             android:name=".actDisciplinas"
@@ -34,7 +34,7 @@
             android:label="actConteudos"
             android:theme="@style/Theme.ImportTxtToSQLite.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".actAnos"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
