@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -8,9 +9,20 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ImportTxtToSQLite"
         tools:targetApi="31">
+        <activity
+            android:name=".actSelecQuestoes"
+            android:exported="false"
+            android:label="@string/title_activity_act_selec_questoes"
+            android:theme="@style/Theme.ImportTxtToSQLite.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/titulo_chatBot"
+            android:theme="@style/Theme.ImportTxtToSQLite.NoActionBar" />
         <activity
             android:name=".actDisciplinas"
             android:exported="false"
@@ -22,7 +34,7 @@
             android:label="actConteudos"
             android:theme="@style/Theme.ImportTxtToSQLite.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".actAnos"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

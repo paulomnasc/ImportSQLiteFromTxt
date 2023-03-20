@@ -12,10 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -98,7 +95,7 @@ public class actConteudos extends AppCompatActivity {
             private void FormMovePrevious() {
 
                 /* Retornar para Lista de Anos */
-                Intent switchActivityIntent = new Intent(actConteudos.this, MainActivity.class);
+                Intent switchActivityIntent = new Intent(actConteudos.this, actAnos.class);
                 startActivity(switchActivityIntent);
 
             }

@@ -1,380 +1,165 @@
 package com.example.importtxttosqlite;
 
-import static android.content.ContentValues.TAG;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ArrayAdapter;
-import android.database.sqlite.SQLiteDatabase;
-import android.content.Context;
-import android.widget.ListView;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.InputStreamReader;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-
-    private SQLiteDatabase db;
-    private String tableName ="tb_ano";
-    private String columns = "id, descricao";
-
-    private ArrayAdapter<String> itensAdaptador;
-    private ArrayList<Integer> ids;
-    private ArrayList<String> descricoes;
-
-    private ListView listaAnos;
-    private Button btnRecriar;
-
-    private Button btnAvancar;
-
-    private Button btnImpDisciplinas;
-
-    MainActivity mContext = this;
-
-    private Integer idSelecionado;
-
-/*
-    private void importarDisciplinas(int idAno, int ano)
-    {
-
-        tableName = "tb_disciplinas";
-
-        String fileName = "Disciplicinas" + ano + "EM.CSV";
-        try
-        {
-            //FileReader file = new FileReader(fileName);
-
-            InputStreamReader file = new InputStreamReader(getAssets()
-                    .open(fileName));
-
-            BufferedReader buffer = new BufferedReader(file);
-            String line = "";
-
-
-            File dbpath = mContext.getDatabasePath("StudyApp");
-
-            if (!dbpath.getParentFile().exists()) {
-                dbpath.getParentFile().mkdirs();
-            }
-
-            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
-            db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName
-                    + "(id INTEGER PRIMARY KEY AUTOINCREMENT "
-                    + ", descricao VARCHAR(255) NOT NULL"
-                    + ", descricao_subitem VARCHAR(255) NOT NULL"
-                    + ", id_ano INTEGER NOT NULL,  FOREIGN KEY(id_ano) REFERENCES tb_ano(id))");
-
-
-
-            String str1 = "INSERT INTO " + tableName + " (descricao, id_ano, descricao_subitem) values (";
-            String str2 = ");";
-
-            db.beginTransaction();
-
-            while ((line = buffer.readLine()) != null) {
-                StringBuilder sb = new StringBuilder(str1);
-                String[] str = line.split(";");
-                */
-    /*
-                sb.append("'" + str[1] + "', ");
-                sb.append("'" + str[0] + "', ");
-                sb.append("'" + str[2] + "')");
-                db.execSQL(sb.toString());
-
-            }
-            db.setTransactionSuccessful();
-            db.endTransaction();
-            db.close();
-            file.close();
-
-        }
-        catch(Exception ex)
-        {
-            Log.i("Erro: ", "ImportarAnos: ", ex);
-            db.close();
-
-        }
-
-
-    }
-
-
-    private void importarConteudos()
-    {
-
-        tableName = "tb_conteudos";
-
-        String fileName = "DisciplicinasEM.CSV";
-        try
-        {
-            //FileReader file = new FileReader(fileName);
-
-            InputStreamReader file = new InputStreamReader(getAssets()
-                    .open(fileName));
-
-            BufferedReader buffer = new BufferedReader(file);
-            String line = "";
-
-
-            File dbpath = mContext.getDatabasePath("StudyApp");
-
-            if (!dbpath.getParentFile().exists()) {
-                dbpath.getParentFile().mkdirs();
-            }
-
-            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
-            db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName
-                    + "(id INTEGER PRIMARY KEY AUTOINCREMENT "
-                    + ", descricao VARCHAR(255) NOT NULL"
-                    + ")");
-
-
-
-            String str1 = "INSERT INTO " + tableName + " (descricao) values (";
-            String str2 = ");";
-
-            db.beginTransaction();
-
-            while ((line = buffer.readLine()) != null) {
-                StringBuilder sb = new StringBuilder(str1);
-                //String[] str = line.split(";");
-                sb.append("'" + line + "')");
-                /*sb.append(str[1] + "',");
-                sb.append(str[2] + "',");
-                sb.append(str[3] + "'");
-                sb.append(str[4] + "'");*/
-
-/*
-                db.execSQL(sb.toString());
-
-            }
-            db.setTransactionSuccessful();
-            db.endTransaction();
-            db.close();
-            file.close();
-
-        }
-        catch(Exception ex)
-        {
-            Log.i("Erro: ", "ImportarAnos: ", ex);
-            db.close();
-
-        }
-
-
-    }
-
-    private void ImportarAnos()
-    {
-
-
-        String fileName = "anosEM.CSV";
-        try
-        {
-            //FileReader file = new FileReader(fileName);
-
-            InputStreamReader file = new InputStreamReader(getAssets()
-                    .open(fileName));
-
-            BufferedReader buffer = new BufferedReader(file);
-            String line = "";
-
-
-            File dbpath = mContext.getDatabasePath("StudyApp");
-
-            if (!dbpath.getParentFile().exists()) {
-                dbpath.getParentFile().mkdirs();
-            }
-
-            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
-            db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName + "(id INTEGER PRIMARY KEY AUTOINCREMENT, descricao VARCHAR(255) NOT NULL)");
-
-
-            String str1 = "INSERT INTO " + tableName + " (descricao) values (";
-            String str2 = ");";
-
-            db.beginTransaction();
-
-            while ((line = buffer.readLine()) != null) {
-                StringBuilder sb = new StringBuilder(str1);
-                String[] str = line.split(";");
-                /* sb.append("'" + str[0] + "',");
-                sb.append(str[1] + "',");
-                sb.append(str[2] + "',");
-                sb.append(str[3] + "'");
-                sb.append(str[4] + "'");
-*/
-    /*
-                sb.append("'" + str[0] + "'");
-                sb.append(str2);
-                db.execSQL(sb.toString());
-            }
-            db.setTransactionSuccessful();
-            db.endTransaction();
-            db.close();
-            file.close();
-
-        }
-        catch(Exception ex)
-        {
-            Log.i("Erro: ", "ImportarAnos: ", ex);
-            db.close();
-
-        }
-
-
-    }
-    */
+    RecyclerView recyclerView;
+    TextView welcomeTextView;
+    EditText messageEditText;
+    ImageButton sendButton;
+    List<Message> messageList;
+    MessageAdapter messageAdapter;
+
+    private String question;
+
+    public static final MediaType JSON
+            = MediaType.get("application/json; charset=utf-8");
+    OkHttpClient client = new OkHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        messageList = new ArrayList<>();
 
+        recyclerView = findViewById(R.id.recycler_view);
+        welcomeTextView = findViewById(R.id.welcome_text);
+        messageEditText = findViewById(R.id.message_edit_text);
+        sendButton = findViewById(R.id.send_btn);
 
-        listaAnos = (ListView) findViewById(R.id.lstAnos);
-        btnRecriar = (Button) findViewById(R.id.btnRecreate);
-        btnAvancar = (Button) findViewById(R.id.btnAvancar);
-        /* btnImpDisciplinas = (Button) findViewById(R.id.btnImportDisciplinas);*/
+        Intent intent= this.getIntent();
+        question = intent.getStringExtra("question");
+        messageEditText.setText(question);
 
-        listaAnos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        //setup recycler view
+        messageAdapter = new MessageAdapter(messageList);
+        recyclerView.setAdapter(messageAdapter);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setStackFromEnd(true);
+        recyclerView.setLayoutManager(llm);
 
-                idSelecionado = ids.get(i);
-                btnAvancar.setEnabled(true);
-
-            }
+        sendButton.setOnClickListener((v)->{
+            String question = messageEditText.getText().toString().trim();
+            addToChat(question,Message.SENT_BY_ME);
+            messageEditText.setText("");
+            callAPI(question);
+            welcomeTextView.setVisibility(View.GONE);
         });
-
-        ListarAnos();
-
-        /*
-        btnImpDisciplinas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /* Comentado para não regerar os id´s, pois daria erro
-                ArrayList<Integer> arlAnos = ListarAnos();
-                for(int i = 0 ; i<= arlAnos.size(); i++)
-                {
-                    importarDisciplinas(arlAnos.get(i),i+1);
-                    i++;
-                }
-
-                //importarConteudos();
-            }
-        });
-        */
-
-
-        btnAvancar.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                switchActivities();
-            }
-
-            private void switchActivities() {
-
-                /* Avançar para Conteudos */
-                Intent switchActivityIntent = new Intent(MainActivity.this, actConteudos.class);
-                switchActivityIntent.putExtra("idSelecionado", idSelecionado.toString());
-                startActivity(switchActivityIntent);
-
-                /* Avançar para Disciplinas
-                Intent switchActivityIntent = new Intent(MainActivity.this, actDisciplinas.class);
-                switchActivityIntent.putExtra("idSelecionado", idSelecionado.toString());
-                startActivity(switchActivityIntent);*/
-            }
-
-        });
-
-        btnRecriar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Imports importador = new Imports();
-                importador.setmContex(mContext);
-                importador.ImportarDados();
-
-
-            }
-        });
-
     }
 
+    void addToChat(String message,String sentBy){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                messageList.add(new Message(message,sentBy));
+                messageAdapter.notifyDataSetChanged();
+                recyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
+            }
+        });
+    }
 
-    private ArrayList<Integer> ListarAnos() {
+    void addResponse(String response){
+        messageList.remove(messageList.size()-1);
+        addToChat(response,Message.SENT_BY_BOT);
+    }
+
+    void callAPI(String question){
+        //okhttp
+        messageList.add(new Message("Typing... ",Message.SENT_BY_BOT));
+
+        JSONObject jsonBody = new JSONObject();
         try {
+            jsonBody.put("model","text-davinci-003");
+            jsonBody.put("prompt",question);
+            jsonBody.put("max_tokens",4000);
+            jsonBody.put("temperature",0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestBody body = RequestBody.create(jsonBody.toString(),JSON);
+        Request request = new Request.Builder()
+                .url("https://api.openai.com/v1/completions")
+                .header("Authorization","Bearer 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")
+                .post(body)
+                .build();
 
-
-            File dbpath = mContext.getDatabasePath("StudyApp");
-
-            if (!dbpath.getParentFile().exists()) {
-                dbpath.getParentFile().mkdirs();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                addResponse("Failed to load response due to "+e.getMessage());
             }
 
-
-            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-            db.execSQL("PRAGMA encoding = 'UTF-8'");
-            Cursor cr = db.rawQuery("SELECT id, descricao FROM " + tableName , null );
-
-            /*if(cr.getCount() == 0)
-                ImportarAnos();*/
-
-            int indColId = cr.getColumnIndex("id");
-            int indColDesc = cr.getColumnIndex("descricao");
-
-            descricoes = new ArrayList<String>();
-            ids = new ArrayList<Integer>();
-            itensAdaptador= new ArrayAdapter<String>(getApplicationContext(),
-                    android.R.layout.simple_list_item_2
-                    , android.R.id.text1
-                    , descricoes);
-
-            listaAnos.setAdapter(itensAdaptador);
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if(response.isSuccessful()){
+                    JSONObject  jsonObject = null;
+                    try {
+                        jsonObject = new JSONObject(response.body().string());
+                        JSONArray jsonArray = jsonObject.getJSONArray("choices");
+                        String result = jsonArray.getJSONObject(0).getString("text");
+                        addResponse(result.trim());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
 
-            cr.moveToFirst();
-            do
-            {
-                Log.i("Logx", "ID" + cr.getString(indColId));
-                ids.add(cr.getInt(indColId));
-                Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
-                descricoes.add(cr.getString(indColDesc));
-                cr.moveToNext();
-                if(cr.isLast()) {
-                    Log.i("Logx", "ID" + cr.getString(indColId));
-                    ids.add(cr.getInt(indColId));
-                    Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
-                    descricoes.add(cr.getString(indColDesc));
+                }else{
+                    addResponse("Failed to load response due to "+response.body().toString());
                 }
+            }
+        });
 
-            }while (!cr.isLast());
 
 
 
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-        }
 
-        return ids;
     }
-
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
