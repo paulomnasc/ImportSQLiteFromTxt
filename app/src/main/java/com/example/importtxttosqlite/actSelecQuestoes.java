@@ -113,7 +113,7 @@ public class actSelecQuestoes extends AppCompatActivity {
 
 
 
-        question = "Cite as 20 dúvidas frequentes de " + txtAssunto.getText();
+        question = "Cite as 10 dúvidas frequentes de " + txtAssunto.getText();
 
         questions.add(question);
 
