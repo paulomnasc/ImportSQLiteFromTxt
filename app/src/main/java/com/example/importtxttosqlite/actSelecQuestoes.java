@@ -96,8 +96,8 @@ public class actSelecQuestoes extends AppCompatActivity {
 
                 Intent switchActivityIntent = new Intent(actSelecQuestoes.this, actDisciplinas.class);
                 switchActivityIntent.putExtra("idAno", idAno.toString());
-                switchActivityIntent.putExtra("dsDisciplina", dsDisciplina.toString());
                 switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
+                switchActivityIntent.putExtra("dsDisciplina", "");
                 startActivity(switchActivityIntent);
 
             }
@@ -114,7 +114,16 @@ public class actSelecQuestoes extends AppCompatActivity {
 
 
         question = "Cite as 10 dúvidas frequentes de " + txtAssunto.getText();
-
+        questions.add(question);
+        question = "Faça um resumo sobre " + txtAssunto.getText();
+        questions.add(question);
+        question = "Me dê exemplos de uso de " + txtAssunto.getText();
+        questions.add(question);
+        question = "Me dê exemplos de situações reais com frases, fórmulas ou algoritmos de " + txtAssunto.getText();
+        questions.add(question);
+        question = "Elabore 10 exercícios de fixação sobre " + txtAssunto.getText();
+        questions.add(question);
+        question = "Formule 5 exercícios de fixação sobre " + txtAssunto.getText() + " com resolução.";
         questions.add(question);
 
         questionsAdaptador= new ArrayAdapter<String>(getApplicationContext(),

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -35,8 +36,11 @@ public class MainActivity extends AppCompatActivity {
     ImageButton sendButton;
     List<Message> messageList;
     MessageAdapter messageAdapter;
-
+    private String idAno;
+    private String idConteudo;
+    private String dsDisciplina;
     private String question;
+    private Button btnVoltar;
 
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
@@ -55,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent= this.getIntent();
         question = intent.getStringExtra("question");
+        dsDisciplina = intent.getStringExtra("dsDisciplina");
+        idAno = intent.getStringExtra("idAno");
+        idConteudo = intent.getStringExtra("idConteudo");
         messageEditText.setText(question);
 
         //setup recycler view
@@ -71,6 +78,32 @@ public class MainActivity extends AppCompatActivity {
             callAPI(question);
             welcomeTextView.setVisibility(View.GONE);
         });
+
+        btnVoltar = (Button) findViewById(R.id.btnVoltar);
+
+        btnVoltar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                FormMovePrevious();
+            }
+
+
+            private void FormMovePrevious() {
+
+                /* Retornar para Lista de Anos */
+                Intent switchActivityIntent = new Intent(MainActivity.this, actSelecQuestoes.class);
+                switchActivityIntent.putExtra("dsDisciplina", dsDisciplina);
+                switchActivityIntent.putExtra("idAno", idAno.toString());
+                switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
+                switchActivityIntent.putExtra("question", "");
+                startActivity(switchActivityIntent);
+
+            }
+
+
+        });
+
     }
 
     void addToChat(String message,String sentBy){
@@ -105,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         RequestBody body = RequestBody.create(jsonBody.toString(),JSON);
         Request request = new Request.Builder()
                 .url("https://api.openai.com/v1/completions")
-                .header("Authorization","Bearer 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")
+                .header("Authorization","Bearer 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")
                 .post(body)
                 .build();
 

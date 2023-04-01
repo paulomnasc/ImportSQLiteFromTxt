@@ -50,7 +50,7 @@ public class actConteudos extends AppCompatActivity {
         //setSupportActionBar(binding.toolbar);
 
         Intent intent= this.getIntent();
-        idAno = intent.getStringExtra("idSelecionado");
+        idAno = intent.getStringExtra("idAno");
 
         ListarConteudos();
 

@@ -114,7 +114,7 @@ public class actDisciplinas extends AppCompatActivity {
                 /* Retornar para Lista de Anos */
                 Intent switchActivityIntent = new Intent(actDisciplinas.this, actConteudos.class);
                 switchActivityIntent.putExtra("idAno", idAno.toString());
-                switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
+                switchActivityIntent.putExtra("idConteudo","");
                 startActivity(switchActivityIntent);
 
             }

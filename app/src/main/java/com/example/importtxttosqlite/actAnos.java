@@ -37,201 +37,7 @@ public class actAnos extends AppCompatActivity {
 
     private Integer idSelecionado;
 
-/*
-    private void importarDisciplinas(int idAno, int ano)
-    {
 
-        tableName = "tb_disciplinas";
-
-        String fileName = "Disciplicinas" + ano + "EM.CSV";
-        try
-        {
-            //FileReader file = new FileReader(fileName);
-
-            InputStreamReader file = new InputStreamReader(getAssets()
-                    .open(fileName));
-
-            BufferedReader buffer = new BufferedReader(file);
-            String line = "";
-
-
-            File dbpath = mContext.getDatabasePath("StudyApp");
-
-            if (!dbpath.getParentFile().exists()) {
-                dbpath.getParentFile().mkdirs();
-            }
-
-            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
-            db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName
-                    + "(id INTEGER PRIMARY KEY AUTOINCREMENT "
-                    + ", descricao VARCHAR(255) NOT NULL"
-                    + ", descricao_subitem VARCHAR(255) NOT NULL"
-                    + ", id_ano INTEGER NOT NULL,  FOREIGN KEY(id_ano) REFERENCES tb_ano(id))");
-
-
-
-            String str1 = "INSERT INTO " + tableName + " (descricao, id_ano, descricao_subitem) values (";
-            String str2 = ");";
-
-            db.beginTransaction();
-
-            while ((line = buffer.readLine()) != null) {
-                StringBuilder sb = new StringBuilder(str1);
-                String[] str = line.split(";");
-                */
-    /*
-                sb.append("'" + str[1] + "', ");
-                sb.append("'" + str[0] + "', ");
-                sb.append("'" + str[2] + "')");
-                db.execSQL(sb.toString());
-
-            }
-            db.setTransactionSuccessful();
-            db.endTransaction();
-            db.close();
-            file.close();
-
-        }
-        catch(Exception ex)
-        {
-            Log.i("Erro: ", "ImportarAnos: ", ex);
-            db.close();
-
-        }
-
-
-    }
-
-
-    private void importarConteudos()
-    {
-
-        tableName = "tb_conteudos";
-
-        String fileName = "DisciplicinasEM.CSV";
-        try
-        {
-            //FileReader file = new FileReader(fileName);
-
-            InputStreamReader file = new InputStreamReader(getAssets()
-                    .open(fileName));
-
-            BufferedReader buffer = new BufferedReader(file);
-            String line = "";
-
-
-            File dbpath = mContext.getDatabasePath("StudyApp");
-
-            if (!dbpath.getParentFile().exists()) {
-                dbpath.getParentFile().mkdirs();
-            }
-
-            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
-            db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName
-                    + "(id INTEGER PRIMARY KEY AUTOINCREMENT "
-                    + ", descricao VARCHAR(255) NOT NULL"
-                    + ")");
-
-
-
-            String str1 = "INSERT INTO " + tableName + " (descricao) values (";
-            String str2 = ");";
-
-            db.beginTransaction();
-
-            while ((line = buffer.readLine()) != null) {
-                StringBuilder sb = new StringBuilder(str1);
-                //String[] str = line.split(";");
-                sb.append("'" + line + "')");
-                /*sb.append(str[1] + "',");
-                sb.append(str[2] + "',");
-                sb.append(str[3] + "'");
-                sb.append(str[4] + "'");*/
-
-/*
-                db.execSQL(sb.toString());
-
-            }
-            db.setTransactionSuccessful();
-            db.endTransaction();
-            db.close();
-            file.close();
-
-        }
-        catch(Exception ex)
-        {
-            Log.i("Erro: ", "ImportarAnos: ", ex);
-            db.close();
-
-        }
-
-
-    }
-
-    private void ImportarAnos()
-    {
-
-
-        String fileName = "anosEM.CSV";
-        try
-        {
-            //FileReader file = new FileReader(fileName);
-
-            InputStreamReader file = new InputStreamReader(getAssets()
-                    .open(fileName));
-
-            BufferedReader buffer = new BufferedReader(file);
-            String line = "";
-
-
-            File dbpath = mContext.getDatabasePath("StudyApp");
-
-            if (!dbpath.getParentFile().exists()) {
-                dbpath.getParentFile().mkdirs();
-            }
-
-            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
-
-            db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName + "(id INTEGER PRIMARY KEY AUTOINCREMENT, descricao VARCHAR(255) NOT NULL)");
-
-
-            String str1 = "INSERT INTO " + tableName + " (descricao) values (";
-            String str2 = ");";
-
-            db.beginTransaction();
-
-            while ((line = buffer.readLine()) != null) {
-                StringBuilder sb = new StringBuilder(str1);
-                String[] str = line.split(";");
-                /* sb.append("'" + str[0] + "',");
-                sb.append(str[1] + "',");
-                sb.append(str[2] + "',");
-                sb.append(str[3] + "'");
-                sb.append(str[4] + "'");
-*/
-    /*
-                sb.append("'" + str[0] + "'");
-                sb.append(str2);
-                db.execSQL(sb.toString());
-            }
-            db.setTransactionSuccessful();
-            db.endTransaction();
-            db.close();
-            file.close();
-
-        }
-        catch(Exception ex)
-        {
-            Log.i("Erro: ", "ImportarAnos: ", ex);
-            db.close();
-
-        }
-
-
-    }
-    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,7 +48,6 @@ public class actAnos extends AppCompatActivity {
         listaAnos = (ListView) findViewById(R.id.lstAnos);
         btnRecriar = (Button) findViewById(R.id.btnRecreate);
         btnAvancar = (Button) findViewById(R.id.btnAvancar);
-        /* btnImpDisciplinas = (Button) findViewById(R.id.btnImportDisciplinas);*/
 
         listaAnos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -256,22 +61,6 @@ public class actAnos extends AppCompatActivity {
 
         ListarAnos();
 
-        /*
-        btnImpDisciplinas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /* Comentado para não regerar os id´s, pois daria erro
-                ArrayList<Integer> arlAnos = ListarAnos();
-                for(int i = 0 ; i<= arlAnos.size(); i++)
-                {
-                    importarDisciplinas(arlAnos.get(i),i+1);
-                    i++;
-                }
-
-                //importarConteudos();
-            }
-        });
-        */
 
 
         btnAvancar.setOnClickListener(new View.OnClickListener(){
@@ -285,7 +74,7 @@ public class actAnos extends AppCompatActivity {
 
                 /* Avançar para Conteudos */
                 Intent switchActivityIntent = new Intent(actAnos.this, actConteudos.class);
-                switchActivityIntent.putExtra("idSelecionado", idSelecionado.toString());
+                switchActivityIntent.putExtra("idAno", idSelecionado.toString());
                 startActivity(switchActivityIntent);
 
                 /* Avançar para Disciplinas
