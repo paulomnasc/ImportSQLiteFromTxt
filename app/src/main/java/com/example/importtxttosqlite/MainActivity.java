@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         Request request = new Request.Builder()
                 .url("https://api.openai.com/v1/completions")
                 .header("OpenAI-Organization","org-mf3vOdPBLDrURrJKvvD5xrkc")
-                .header("Authorization","Bearer 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")
+                .header("Authorization","Bearer API AQUI")
                 .post(body)
                 .build();
 
