@@ -6,6 +6,12 @@ android {
     namespace 'com.example.importtxttosqlite'
     compileSdk 33
 
+    sourceSets {
+        main {
+            // outras configurações
+            assets.srcDirs += ["src/main/assets"]
+        }
+    }
     defaultConfig {
         applicationId "com.example.importtxttosqlite"
         minSdk 24
