@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
-public class Imports extends AppCompatActivity {
+public class Imports extends actAnos {
 
     private SQLiteDatabase db;
     private String tableName ="tb_ano";

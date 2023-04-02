@@ -68,9 +68,16 @@ public class actAnos extends AppCompatActivity {
             // Coloque aqui o código que deve ser executado somente na primeira vez que o aplicativo é iniciado
             // Por exemplo, você pode mostrar um tutorial ou exibir uma mensagem de boas-vindas para o usuário
             preferences.edit().putBoolean("is_first_run", false).apply();
+            Imports importador = new Imports();
+            importador.setmContex(this);
+            try {
+                importador.ImportarDados();
+            }
+            catch(Exception e){
 
+                Log.i("ERROR", e.getMessage());
 
-
+            }
         }
 
 
@@ -120,7 +127,6 @@ public class actAnos extends AppCompatActivity {
             public void onClick(View view) {
 
                 Imports importador = new Imports();
-                importador.setmContex(mContext);
                 importador.ImportarDados();
 
 
