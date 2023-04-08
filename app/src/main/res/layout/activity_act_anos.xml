@@ -32,8 +32,8 @@
 
     <Button
         android:id="@+id/btnAvancar"
-        android:layout_width="119dp"
-        android:layout_height="65dp"
+        android:layout_width="288dp"
+        android:layout_height="59dp"
         android:enabled="false"
         android:text="@string/proximo"
         app:layout_constraintBottom_toBottomOf="parent"
