@@ -29,13 +29,14 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
+public class MainActivity extends BaseAPIActivity {
+
     TextView welcomeTextView;
     EditText messageEditText;
     ImageButton sendButton;
+    /*RecyclerView recyclerView;
     List<Message> messageList;
-    MessageAdapter messageAdapter;
+    MessageAdapter messageAdapter;*/
     private String idAno;
     private String idConteudo;
     private String dsDisciplina;
@@ -122,12 +123,14 @@ public class MainActivity extends AppCompatActivity {
         addToChat(response,Message.SENT_BY_BOT);
     }
 
+    /*
     void callAPI(String question){
-        //okhttp
+
         messageList.add(new Message("Typing... ",Message.SENT_BY_BOT));
 
         JSONObject jsonBody = new JSONObject();
-        try {
+        try {*/
+    /*
             jsonBody.put("model","text-davinci-003");
             jsonBody.put("prompt",question);
             jsonBody.put("max_tokens",4000);
@@ -139,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         Request request = new Request.Builder()
                 .url("https://api.openai.com/v1/completions")
                 .header("OpenAI-Organization","org-mf3vOdPBLDrURrJKvvD5xrkc")
-                .header("Authorization","Bearer API AQUI")
+                .header("Authorization",getString(R.string.api_key))
                 .post(body)
                 .build();
 
@@ -164,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }else{
-                    addResponse("Failed to load response due to "+response.body().toString());
+                    String errorBodyString = response.body().string();
+                    addResponse("Failed to load response due to " + errorBodyString);
                 }
             }
         });
@@ -174,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+*/
 
 }
 
