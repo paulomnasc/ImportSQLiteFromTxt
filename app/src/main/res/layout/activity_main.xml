@@ -4,61 +4,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFAD0"
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_above="@id/bottom_layout"
-        android:layout_marginBottom="51dp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/welcome_text"
-        android:layout_centerInParent="true"
-        android:text="Welcome to Easy ChatGPT\nTry it out now"
-        android:gravity="center"
-        android:textSize="28dp"
-        />
+        android:layout_width="407dp"
+        android:layout_height="592dp"
+        android:layout_above="@+id/bottom_layout"
+        android:layout_marginBottom="13dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/WelcomeMessage"
+        android:layout_width="327dp"
+        android:layout_height="589dp"
+        android:layout_above="@+id/bottom_layout"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/LastHalf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clique no botão enviar mensagem ao lado da caixa de texto:"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SecondHalf"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/SecondHalf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Este app utiliza o ChatGPT como fonte de consulta, por este motivo não é garantido que as perguntas serão totalmente atendidas, pois a máquina ainda se encontra em fase de aprendizagem."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FirstHalf" />
+
+        <TextView
+            android:id="@+id/FirstHalf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="216dp"
+            android:gravity="center"
+            android:text="Bem Vindo ao App de Estudo para o Ensino Médio!!"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
+        android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="127dp"
         android:layout_alignParentBottom="true"
-        android:padding="8dp"
-        android:id="@+id/bottom_layout">
+        android:padding="8dp">
 
         <EditText
             android:id="@+id/message_edit_text"
-            android:layout_width="346dp"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
             android:layout_toLeftOf="@id/send_btn"
             android:background="@drawable/rounded_corner"
             android:hint="Write here "
-            android:padding="16dp" />
+            android:padding="16dp"
+            android:textColor="#000000" />
 
         <ImageButton
             android:id="@+id/send_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginStart="10dp"
-            android:background="#FFFFFF"
+            android:layout_marginEnd="12dp"
+            android:background="#FFFAD0"
             android:contentDescription="Enter i don´t now"
             android:padding="8dp"
             android:src="@drawable/ic_baseline_send_24" />
 
+        <Button
+            android:id="@+id/btnVoltar"
+            android:layout_width="170dp"
+            android:layout_height="51dp"
+            android:layout_below="@+id/message_edit_text"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="115dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="118dp"
+            android:layout_marginBottom="0dp"
+            android:text="@string/voltar" />
+
 
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/btnVoltar"
-        android:layout_width="123dp"
-        android:layout_height="wrap_content"
-        android:text="@string/voltar" />
 
 
 </RelativeLayout>

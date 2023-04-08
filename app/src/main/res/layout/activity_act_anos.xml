@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFAD0"
     tools:context=".actAnos">
 
     <ListView
         android:id="@+id/lstAnos"
-        android:layout_width="413dp"
-        android:layout_height="507dp"
+        android:layout_width="409dp"
+        android:layout_height="363dp"
         android:layout_marginEnd="1dp"
         android:listSelector="@color/teal_200"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -17,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24000001" />
+        app:layout_constraintVertical_bias="0.39" />
 
     <Button
         android:id="@+id/btnRecreate"
@@ -31,14 +32,15 @@
 
     <Button
         android:id="@+id/btnAvancar"
-        android:layout_width="119dp"
-        android:layout_height="65dp"
+        android:layout_width="288dp"
+        android:layout_height="59dp"
         android:enabled="false"
         android:text="@string/proximo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lstAnos" />
+        app:layout_constraintTop_toBottomOf="@+id/lstAnos"
+        app:layout_constraintVertical_bias="0.8" />
 
     <TextView
         android:id="@+id/textView2"

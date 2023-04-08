@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFAD0"
     tools:context=".actSelecQuestoes">
 
         <TextView
@@ -46,32 +47,43 @@
 
         <ListView
             android:id="@+id/lstQuestions"
-            android:layout_width="376dp"
-            android:layout_height="396dp"
+            android:layout_width="411dp"
+            android:layout_height="426dp"
             android:listSelector="@color/teal_200"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.37"
-            tools:visibility="visible" />
+            app:layout_constraintVertical_bias="0.6"
+            tools:visibility="visible">
+
+        </ListView>
 
         <TextView
             android:id="@+id/txtAssunto"
-            android:layout_width="406dp"
-            android:layout_height="34dp"
+            android:layout_width="407dp"
+            android:layout_height="90dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="14dp"
             android:layout_marginBottom="16dp"
             android:shadowColor="@color/teal_200"
             android:text="@string/titulo_telaDisciplinas"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/lstQuestions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/LoadingImage"
+            android:layout_width="138dp"
+            android:layout_height="137dp"
+            android:src="@drawable/loading"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
