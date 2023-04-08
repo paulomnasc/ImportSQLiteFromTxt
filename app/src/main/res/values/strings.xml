@@ -11,7 +11,7 @@
     <string name="titulo_telaDisciplinas">Selecione o conteúdo para pesquisar</string>
     <string name="titulo_telaQuestoes">Selecione uma questão</string>
     <string name="titulo_chatBot">Sem texto no momento</string>
-    <string name="api_key">API-KEY</string>
+    <string name="api_key">API-AQUI</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
