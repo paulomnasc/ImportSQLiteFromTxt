@@ -107,7 +107,19 @@ public class MainActivity extends BaseAPIActivity {
 
     void addResponse(String response){
         messageList.remove(messageList.size()-1);
-        addToChat(response,Message.SENT_BY_BOT);
+
+        //Criar uma classe para tratar o retorno de matemática que vem com formato pouco natural
+        // para os alunos
+        String resposta = "";
+        // 3 = MATEMATICA
+        if(idConteudo.equalsIgnoreCase("3")) {
+            RespostaMatematicaHelper formatador = new RespostaMatematicaHelper();
+            resposta = formatador.FormataResposta(response);
+        }else{
+            resposta = response;
+        }
+
+        addToChat(resposta,Message.SENT_BY_BOT);
     }
 
     /*

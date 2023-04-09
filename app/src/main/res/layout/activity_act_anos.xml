@@ -47,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/titulo_telaAnos"
+        android:textColor="#090909"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/lstAnos"
         app:layout_constraintEnd_toEndOf="parent"

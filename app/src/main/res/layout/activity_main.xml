@@ -32,13 +32,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Clique no botão enviar mensagem ao lado da caixa de texto:"
+            android:textColor="#1B1919"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SecondHalf"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.9" />
 
         <TextView
             android:id="@+id/SecondHalf"
@@ -46,6 +47,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Este app utiliza o ChatGPT como fonte de consulta, por este motivo não é garantido que as perguntas serão totalmente atendidas, pois a máquina ainda se encontra em fase de aprendizagem."
+            android:textColor="#101010"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +60,7 @@
             android:layout_marginTop="216dp"
             android:gravity="center"
             android:text="Bem Vindo ao App de Estudo para o Ensino Médio!!"
+            android:textColor="#121111"
             android:textSize="28dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
