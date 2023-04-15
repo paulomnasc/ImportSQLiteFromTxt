@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,116 +7,90 @@
     android:background="#FFFAD0"
     tools:context=".MainActivity">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="407dp"
-        android:layout_height="592dp"
-        android:layout_above="@+id/bottom_layout"
-        android:layout_marginBottom="13dp">
+        android:layout_width="406dp"
+        android:layout_height="501dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/LastHalf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48000002" />
 
-    </androidx.recyclerview.widget.RecyclerView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/WelcomeMessage"
-        android:layout_width="327dp"
-        android:layout_height="589dp"
-        android:layout_above="@+id/bottom_layout"
+    <EditText
+        android:id="@+id/message_edit_text"
+        android:layout_width="352dp"
+        android:layout_height="54dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_toLeftOf="@id/send_btn"
+        android:background="@drawable/rounded_corner"
+        android:hint="Write here "
+        android:padding="16dp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/btnVoltar"
+        app:layout_constraintEnd_toStartOf="@+id/send_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LastHalf" />
+
+    <ImageButton
+        android:id="@+id/send_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="64dp"
+        android:background="#FFFAD0"
+        android:contentDescription="Enter i don´t now"
+        android:padding="8dp"
+        android:src="@drawable/ic_baseline_send_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/message_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/LastHalf" />
+
+    <Button
+        android:id="@+id/btnVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:layout_below="@+id/message_edit_text"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="37dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginBottom="16dp">
-
-        <TextView
-            android:id="@+id/LastHalf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clique no botão enviar mensagem ao lado da caixa de texto:"
-            android:textColor="#1B1919"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SecondHalf"
-            app:layout_constraintVertical_bias="0.9" />
-
-        <TextView
-            android:id="@+id/SecondHalf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Este app utiliza o ChatGPT como fonte de consulta, por este motivo não é garantido que as perguntas serão totalmente atendidas, pois a máquina ainda se encontra em fase de aprendizagem."
-            android:textColor="#101010"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FirstHalf" />
-
-        <TextView
-            android:id="@+id/FirstHalf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="216dp"
-            android:gravity="center"
-            android:text="Bem Vindo ao App de Estudo para o Ensino Médio!!"
-            android:textColor="#121111"
-            android:textSize="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <RelativeLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="127dp"
         android:layout_alignParentBottom="true"
-        android:padding="8dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/voltar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message_edit_text" />
 
-        <EditText
-            android:id="@+id/message_edit_text"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@id/send_btn"
-            android:background="@drawable/rounded_corner"
-            android:hint="Write here "
-            android:padding="16dp"
-            android:textColor="#000000" />
-
-        <ImageButton
-            android:id="@+id/send_btn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="12dp"
-            android:background="#FFFAD0"
-            android:contentDescription="Enter i don´t now"
-            android:padding="8dp"
-            android:src="@drawable/ic_baseline_send_24" />
-
-        <Button
-            android:id="@+id/btnVoltar"
-            android:layout_width="170dp"
-            android:layout_height="51dp"
-            android:layout_below="@+id/message_edit_text"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="115dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="118dp"
-            android:layout_marginBottom="0dp"
-            android:text="@string/voltar" />
+    <TextView
+        android:id="@+id/LastHalf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="14dp"
+        android:text="Clique no botão enviar mensagem ao lado da caixa de texto:"
+        android:textColor="#1B1919"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/message_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
 
 
-    </RelativeLayout>
-
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

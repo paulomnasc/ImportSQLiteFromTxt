@@ -48,8 +48,8 @@
 
         <ListView
             android:id="@+id/lstQuestions"
-            android:layout_width="411dp"
-            android:layout_height="426dp"
+            android:layout_width="397dp"
+            android:layout_height="423dp"
             android:listSelector="@color/teal_200"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
