@@ -7,10 +7,29 @@
     android:background="#FFFAD0"
     tools:context=".actDisciplinas">
 
+    <EditText
+        android:id="@+id/txtDisciplina"
+        android:layout_width="352dp"
+        android:layout_height="54dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/rounded_corner"
+        android:hint="Write here "
+        android:padding="16dp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/btnVoltar"
+        app:layout_constraintEnd_toStartOf="@+id/send_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lstDisciplinas"
+        app:layout_constraintVertical_bias="1.0" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:text="@string/titulo_telaDisciplinas"
         android:textColor="#1C1B1B"
         android:textSize="20sp"
@@ -21,14 +40,14 @@
 
     <ListView
         android:id="@+id/lstDisciplinas"
-        android:layout_width="415dp"
-        android:layout_height="443dp"
+        android:layout_width="398dp"
+        android:layout_height="414dp"
+        android:layout_marginTop="65dp"
         android:listSelector="@color/teal_200"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.53"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
         tools:visibility="visible" />
 
     <Button
@@ -56,5 +75,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.98" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginBottom="23dp"
+        android:text="Ou digite..."
+        app:layout_constraintBottom_toTopOf="@+id/txtDisciplina"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lstDisciplinas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

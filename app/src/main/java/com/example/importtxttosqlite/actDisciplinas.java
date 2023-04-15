@@ -7,11 +7,14 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.navigation.ui.AppBarConfiguration;
@@ -36,6 +39,7 @@ public class actDisciplinas extends AppCompatActivity {
 
     private Button btnAvancar;
     private Button btnVoltar;
+    private EditText txtDisciplina;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,7 @@ public class actDisciplinas extends AppCompatActivity {
 
         btnAvancar = (Button) findViewById(R.id.btnAvancar);
         btnVoltar = (Button) findViewById(R.id.btnVoltar);
+        txtDisciplina= (EditText)findViewById(R.id.txtDisciplina);
 
         listaDisciplinas = (ListView) findViewById(R.id.lstDisciplinas);
 
@@ -53,7 +58,35 @@ public class actDisciplinas extends AppCompatActivity {
 
         ListarDisciplinas(idAno, idConteudo);
 
-        btnAvancar.setOnClickListener(new View.OnClickListener(){
+        txtDisciplina.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        txtDisciplina.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                listaDisciplinas.setVisibility(View.INVISIBLE);
+                btnAvancar.setEnabled(true);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+
+
+        /*btnAvancar.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
@@ -69,6 +102,7 @@ public class actDisciplinas extends AppCompatActivity {
             }
 
         });
+*/
 
         listaDisciplinas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -88,6 +122,10 @@ public class actDisciplinas extends AppCompatActivity {
             }
 
             private void FormMoveNext() {
+
+
+                if(txtDisciplina.getText().length() >0)
+                    dsDisciplina = txtDisciplina.getText().toString();
 
                 /* Avançar para Conteudos */
                 Intent switchActivityIntent = new Intent(actDisciplinas.this, actSelecQuestoes.class);
