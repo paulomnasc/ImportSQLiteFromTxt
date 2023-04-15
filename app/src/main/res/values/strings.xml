@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Estudo Ensino Médio</string>
+    <string name="app_name">AprendeAI</string>
     <string name="title_activity_act_disciplinas">actDisciplinas</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
