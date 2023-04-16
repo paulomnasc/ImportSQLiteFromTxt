@@ -63,7 +63,7 @@ public class actAnos extends AppCompatActivity {
         setContentView(R.layout.activity_act_anos);
 
 
-        SharedPreferences preferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("com.example.importtxttosqlite", MODE_PRIVATE);
         if (preferences.getBoolean("is_first_run", true)) {
             // Coloque aqui o código que deve ser executado somente na primeira vez que o aplicativo é iniciado
             // Por exemplo, você pode mostrar um tutorial ou exibir uma mensagem de boas-vindas para o usuário
