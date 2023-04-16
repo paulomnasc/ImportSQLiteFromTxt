@@ -1,4 +1,4 @@
-package com.example.importtxttosqlite;
+package com.studyapp.importtxttosqlite;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.navigation.ui.AppBarConfiguration;
+
+import com.studyapp.importtxttosqlite.R;
 
 import java.io.File;
 import java.util.ArrayList;

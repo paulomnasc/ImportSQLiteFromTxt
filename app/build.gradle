@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.importtxttosqlite'
+    namespace 'com.studyapp.importtxttosqlite'
     compileSdk 33
 
     sourceSets {
@@ -13,7 +13,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.example.importtxttosqlite"
+        applicationId "com.studyapp.importtxttosqlite"
         minSdk 24
         targetSdk 33
         versionCode 1

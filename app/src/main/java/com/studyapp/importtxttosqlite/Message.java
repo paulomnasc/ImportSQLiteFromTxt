@@ -1,4 +1,4 @@
-package com.example.importtxttosqlite;
+package com.studyapp.importtxttosqlite;
 
 public class Message {
     public static String SENT_BY_ME = "me";

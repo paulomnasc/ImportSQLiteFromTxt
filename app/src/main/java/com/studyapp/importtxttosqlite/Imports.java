@@ -1,11 +1,9 @@
-package com.example.importtxttosqlite;
+package com.studyapp.importtxttosqlite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.File;

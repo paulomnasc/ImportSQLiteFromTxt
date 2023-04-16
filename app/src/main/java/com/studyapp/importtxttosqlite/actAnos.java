@@ -1,4 +1,4 @@
-package com.example.importtxttosqlite;
+package com.studyapp.importtxttosqlite;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ArrayAdapter;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.ListView;
+
+import com.studyapp.importtxttosqlite.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,7 +45,7 @@ public class actAnos extends AppCompatActivity {
     private Integer idSelecionado;
 
     private void copyDatabase() throws IOException {
-        InputStream inputStream = getApplicationContext().getAssets().open("nome_do_banco_de_dados.sqlite");
+        InputStream inputStream = getApplicationContext().getAssets().open("StudyApp");
         String outFileName = getDatabasePath("StudyApp").getPath();
         OutputStream outputStream = new FileOutputStream(outFileName);
         byte[] buffer = new byte[1024];
@@ -63,7 +65,7 @@ public class actAnos extends AppCompatActivity {
         setContentView(R.layout.activity_act_anos);
 
 
-        SharedPreferences preferences = getSharedPreferences("com.example.importtxttosqlite", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("com.studyapp.importtxttosqlite", MODE_PRIVATE);
         if (preferences.getBoolean("is_first_run", true)) {
             // Coloque aqui o código que deve ser executado somente na primeira vez que o aplicativo é iniciado
             // Por exemplo, você pode mostrar um tutorial ou exibir uma mensagem de boas-vindas para o usuário

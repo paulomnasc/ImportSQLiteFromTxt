@@ -1,10 +1,8 @@
-package com.example.importtxttosqlite;
+package com.studyapp.importtxttosqlite;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
 import android.util.Log;
@@ -16,7 +14,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.IOException;
+import com.studyapp.importtxttosqlite.R;
+
 import java.util.ArrayList;
 
 import pl.droidsonroids.gif.GifImageView;

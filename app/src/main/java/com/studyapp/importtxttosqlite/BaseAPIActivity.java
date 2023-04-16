@@ -1,12 +1,10 @@
-package com.example.importtxttosqlite;
-
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
+package com.studyapp.importtxttosqlite;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.studyapp.importtxttosqlite.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

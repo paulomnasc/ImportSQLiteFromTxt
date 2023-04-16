@@ -1,4 +1,4 @@
-package com.example.easychatgpt;
+package com.studyapp.easychatgpt;
 
 import org.junit.Test;
 

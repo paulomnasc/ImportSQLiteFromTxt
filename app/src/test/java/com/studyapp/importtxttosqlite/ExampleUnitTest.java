@@ -1,4 +1,4 @@
-package com.example.importtxttosqlite;
+package com.studyapp.importtxttosqlite;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.importtxttosqlite;
+package com.studyapp.importtxttosqlite;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.studyapp.importtxttosqlite.R;
 
 import java.util.List;
 
