@@ -25,8 +25,8 @@
 
     <EditText
         android:id="@+id/message_edit_text"
-        android:layout_width="352dp"
-        android:layout_height="54dp"
+        android:layout_width="316dp"
+        android:layout_height="51dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -47,7 +47,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="3dp"
-        android:layout_marginEnd="3dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="64dp"
         android:background="#FFFAD0"
         android:contentDescription="Enter i don´t now"
@@ -60,19 +60,17 @@
 
     <Button
         android:id="@+id/btnVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="57dp"
+        android:layout_width="193dp"
+        android:layout_height="53dp"
         android:layout_below="@+id/message_edit_text"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/voltar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_perguntarDeNovo"
+        app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/message_edit_text" />
 
@@ -91,6 +89,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
+
+    <Button
+        android:id="@+id/btn_perguntarDeNovo"
+        android:layout_width="172dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:clickable="true"
+        android:text="Perguntar novamente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnVoltar"
+        app:layout_constraintTop_toBottomOf="@+id/message_edit_text" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

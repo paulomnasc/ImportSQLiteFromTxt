@@ -29,6 +29,7 @@ public class MainActivity extends BaseAPIActivity {
     private String dsDisciplina;
     private String question;
     private Button btnVoltar;
+    private Button btnPN;
 
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
@@ -43,6 +44,7 @@ public class MainActivity extends BaseAPIActivity {
         recyclerView = findViewById(R.id.recycler_view);
         messageEditText = findViewById(R.id.message_edit_text);
         sendButton = findViewById(R.id.send_btn);
+        btnPN = findViewById(R.id.btn_perguntarDeNovo);
 
         Intent intent= this.getIntent();
         question = intent.getStringExtra("question");
@@ -90,6 +92,8 @@ public class MainActivity extends BaseAPIActivity {
 
 
         });
+
+        btnPN.setOnClickListener(view -> messageEditText.setText(question));
 
     }
 
