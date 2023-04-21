@@ -61,10 +61,8 @@ public class MainActivity extends BaseAPIActivity {
         recyclerView.setLayoutManager(llm);
 
         sendButton.setOnClickListener((v)->{
-            String question = messageEditText.getText().toString().trim();
-            addToChat(question,Message.SENT_BY_ME);
-            messageEditText.setText("");
-            callAPI(question);
+
+            enviarPergunta();
 
         });
 
@@ -93,7 +91,21 @@ public class MainActivity extends BaseAPIActivity {
 
         });
 
-        btnPN.setOnClickListener(view -> messageEditText.setText(question));
+        btnPN.setOnClickListener(view -> {
+            messageEditText.setText(question);
+            enviarPergunta();
+        });
+
+
+
+    }
+
+    private void enviarPergunta(){
+
+        String question = messageEditText.getText().toString().trim();
+        addToChat(question,Message.SENT_BY_ME);
+        messageEditText.setText("");
+        callAPI(question);
 
     }
 
