@@ -31,6 +31,7 @@ public class Imports extends actAnos {
     public boolean ImportarDados(){
 
         DroparTabelas();
+
         ImportarAnos();
         ImportarConteudos();
 
@@ -40,7 +41,7 @@ public class Imports extends actAnos {
         {
             ImportarDisciplinas(arlAnos.get(i),i);
         }
-
+        criarPerguntasDisciplinas();
 
         return  true;
     }
@@ -65,6 +66,7 @@ public class Imports extends actAnos {
             db.execSQL("DROP TABLE IF EXISTS tb_ano");
             db.execSQL("DROP TABLE IF EXISTS tb_conteudos");
             db.execSQL("DROP TABLE IF EXISTS tb_disciplinas");
+            db.execSQL("DROP TABLE IF EXISTS tb_perguntas_disciplinas");
             db.setTransactionSuccessful();
             db.endTransaction();
             db.close();
@@ -78,6 +80,46 @@ public class Imports extends actAnos {
 
     }
 
+
+    private void criarPerguntasDisciplinas()
+    {
+
+
+
+        tableName = "tb_perguntas_disciplinas";
+
+
+        try
+        {
+
+            File dbpath = mContext.getDatabasePath("StudyApp");
+
+            if (!dbpath.getParentFile().exists()) {
+                dbpath.getParentFile().mkdirs();
+            }
+
+            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
+            db.execSQL("PRAGMA encoding = 'UTF-8'");
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + tableName
+                    + "(id INTEGER PRIMARY KEY AUTOINCREMENT "
+                    + ", descricao VARCHAR(255) NOT NULL"
+                    + ", id_disciplina INTEGER NOT NULL"
+                    + ", FOREIGN KEY(id_disciplina) REFERENCES tb_disciplinas(id))");
+
+
+            db.close();
+
+
+        }
+        catch(Exception ex)
+        {
+            Log.i("Erro: ", "ImportarAnos: ", ex);
+            db.close();
+
+        }
+
+
+    }
 
     private void ImportarDisciplinas(int idAno, int ano)
     {
