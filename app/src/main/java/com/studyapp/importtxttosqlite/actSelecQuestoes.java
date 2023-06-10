@@ -1,6 +1,8 @@
 package com.studyapp.importtxttosqlite;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 
@@ -16,6 +18,7 @@ import android.widget.TextView;
 
 import com.studyapp.importtxttosqlite.R;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import pl.droidsonroids.gif.GifImageView;
@@ -27,6 +30,8 @@ public class actSelecQuestoes extends BaseAPIActivity {
     private String idConteudo;
 
     private String question;
+
+    private String tableName ="tb_perguntas_disciplinas";
 
     private ArrayAdapter<String> questionsAdaptador;
     private ArrayList<String> questions;
@@ -41,6 +46,9 @@ public class actSelecQuestoes extends BaseAPIActivity {
     private ImageView iconLoad;
 
     private Handler handler;
+    private String idDisciplina;
+    private ArrayList descricoes;
+    private ArrayList ids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
 
         Intent intent= this.getIntent();
         dsDisciplina = intent.getStringExtra("dsDisciplina");
+        idDisciplina = intent.getStringExtra("idDisciplina");
         idAno = intent.getStringExtra("idAno");
         idConteudo = intent.getStringExtra("idConteudo");
 
@@ -123,10 +132,111 @@ public class actSelecQuestoes extends BaseAPIActivity {
 
     }
 
+
+    /*
+    Insere a lista de dúvidas frequentes de um id_disciplina
+     */
+    private void inserirDuvidasFrequentes(String descricao)
+    {
+
+        String str1 = "INSERT INTO tb_perguntas_disciplinas (id,descricao,id_disciplina) values (";
+
+        File dbpath = this.getDatabasePath("StudyApp");
+
+        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
+
+        db.beginTransaction();
+        StringBuilder sb = new StringBuilder(str1);
+
+        sb.append("'" + descricao + "', ");
+        sb.append("'" + idDisciplina + "') ");
+        db.execSQL(sb.toString());
+        Log.i("Msg: ", "Importar: " + sb.toString());
+
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
+
+    }
+
+    /*
+    Lista as dúvidas frequentes de um id_disciplina
+     */
+    private int listarDuvidasFrequentesFromDB()
+    {
+
+        try {
+
+
+            File dbpath = this.getDatabasePath("StudyApp");
+
+            if (!dbpath.getParentFile().exists()) {
+                dbpath.getParentFile().mkdirs();
+            }
+
+            SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
+
+
+            db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
+            db.execSQL("PRAGMA encoding = 'UTF-8'");
+            Cursor cr = db.rawQuery("SELECT id, descricao, id_disciplina FROM tb_perguntas_disciplinas" , null );
+
+
+            int indColId = cr.getColumnIndex("id");
+            int indColDesc = cr.getColumnIndex("descricao");
+
+            descricoes = new ArrayList<String>();
+            ids = new ArrayList<Integer>();
+            ArrayAdapter<String> itensAdaptador = new ArrayAdapter<String>(getApplicationContext(),
+                    android.R.layout.simple_list_item_2
+                    , android.R.id.text1
+                    , descricoes);
+
+
+            listaQuestions.setAdapter(itensAdaptador);
+
+
+            cr.moveToFirst();
+            do
+            {
+                //Log.i("Logx", "ID" + cr.getString(indColId));
+                ids.add(cr.getInt(indColId));
+                //Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
+                descricoes.add(cr.getString(indColDesc));
+
+                cr.moveToNext();
+                if(cr.isLast()) {
+                    //Log.i("Logx", "ID" + cr.getString(indColId));
+                    ids.add(cr.getInt(indColId));
+                    //Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
+                    descricoes.add(cr.getString(indColDesc));
+                }
+
+            }while (!cr.isLast());
+
+
+
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
+
     private void ObterDuvidasFrequentes()
     {
+
+
         String question = "Cite as 10 dúvidas frequentes de " + txtAssunto.getText();
-        callAPI(question);
+
+
+        int qtdLinhas = listarDuvidasFrequentesFromDB();
+        if(qtdLinhas == 0) {
+            callAPI(question);
+        }
 
     }
 
@@ -173,20 +283,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
 
         questions = new ArrayList<String>();
 
-
-
-        /*Esta questão será buscada diretamente do chat gpt
-        question = "Cite as 10 dúvidas frequentes de " + txtAssunto.getText();
-        questions.add(question);
-        */
-
-        String[] vetorQuestoesFrequentes = txtResponse.split("\n");
-        if(vetorQuestoesFrequentes != null)
-        {
-            for (String item: vetorQuestoesFrequentes) {
-                questions.add(item);
-            }
-        }
+        listFromAPI();
 
         question = "Faça um resumo sobre " + txtAssunto.getText();
         questions.add(question);
@@ -205,6 +302,22 @@ public class actSelecQuestoes extends BaseAPIActivity {
         return questions;
 
 
+    }
+
+    private void listFromAPI() {
+
+        /*Esta questão será buscada diretamente do chat gpt
+        question = "Cite as 10 dúvidas frequentes de " + txtAssunto.getText();
+        */
+
+        String[] vetorQuestoesFrequentes = txtResponse.split("\n");
+        if(vetorQuestoesFrequentes != null)
+        {
+            for (String item: vetorQuestoesFrequentes) {
+                questions.add(item);
+                inserirDuvidasFrequentes(item);
+            }
+        }
     }
 
 

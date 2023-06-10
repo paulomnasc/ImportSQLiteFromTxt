@@ -14,8 +14,6 @@ import android.widget.ArrayAdapter;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.ListView;
 
-import com.studyapp.importtxttosqlite.R;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

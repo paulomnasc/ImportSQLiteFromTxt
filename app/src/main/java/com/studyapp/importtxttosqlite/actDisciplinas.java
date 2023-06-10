@@ -42,6 +42,8 @@ public class actDisciplinas extends AppCompatActivity {
     private Button btnAvancar;
     private Button btnVoltar;
     private EditText txtDisciplina;
+
+    private int idDisciplina;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +113,7 @@ public class actDisciplinas extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 dsDisciplina = descricoes.get(i);
+                idDisciplina = ids.get(i);
                 btnAvancar.setEnabled(true);
 
             }
@@ -132,6 +135,7 @@ public class actDisciplinas extends AppCompatActivity {
                 /* Avançar para Conteudos */
                 Intent switchActivityIntent = new Intent(actDisciplinas.this, actSelecQuestoes.class);
                 switchActivityIntent.putExtra("dsDisciplina", dsDisciplina.toString());
+                switchActivityIntent.putExtra("idDisciplina", idDisciplina);
                 switchActivityIntent.putExtra("idAno", idAno.toString());
                 switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
                 startActivity(switchActivityIntent);
@@ -189,7 +193,9 @@ public class actDisciplinas extends AppCompatActivity {
            //     ImportarAnos();
 
             int indColId = cr.getColumnIndex("id");
+
             int indColDesc = cr.getColumnIndex("descricao_subitem");
+
 
             descricoes = new ArrayList<String>();
             ids = new ArrayList<Integer>();
