@@ -43,7 +43,7 @@ public class actDisciplinas extends AppCompatActivity {
     private Button btnVoltar;
     private EditText txtDisciplina;
 
-    private int idDisciplina;
+    private String idDisciplina;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +113,7 @@ public class actDisciplinas extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 dsDisciplina = descricoes.get(i);
-                idDisciplina = ids.get(i);
+                idDisciplina = ids.get(i).toString();
                 btnAvancar.setEnabled(true);
 
             }
