@@ -138,25 +138,25 @@ public class actSelecQuestoes extends BaseAPIActivity {
      */
     private void inserirDuvidasFrequentes(String descricao)
     {
+        if (!descricao.equalsIgnoreCase("Failed to load response due to timeout")) {
+            String str1 = "INSERT INTO tb_perguntas_disciplinas (descricao,id_disciplina) values (";
 
-        String str1 = "INSERT INTO tb_perguntas_disciplinas (id,descricao,id_disciplina) values (";
+            File dbpath = this.getDatabasePath("StudyApp");
 
-        File dbpath = this.getDatabasePath("StudyApp");
+            SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
 
-        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
+            db.beginTransaction();
+            StringBuilder sb = new StringBuilder(str1);
 
-        db.beginTransaction();
-        StringBuilder sb = new StringBuilder(str1);
+            sb.append("'" + descricao + "', ");
+            sb.append("'" + idDisciplina + "') ");
+            db.execSQL(sb.toString());
+            Log.i("Msg: ", "Importar: " + sb.toString());
 
-        sb.append("'" + descricao + "', ");
-        sb.append("'" + idDisciplina + "') ");
-        db.execSQL(sb.toString());
-        Log.i("Msg: ", "Importar: " + sb.toString());
-
-        db.setTransactionSuccessful();
-        db.endTransaction();
-        db.close();
-
+            db.setTransactionSuccessful();
+            db.endTransaction();
+            db.close();
+        }
     }
 
     /*
