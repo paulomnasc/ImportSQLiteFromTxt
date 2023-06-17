@@ -90,6 +90,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
                 switchActivityIntent.putExtra("dsDisciplina", dsDisciplina);
                 switchActivityIntent.putExtra("idAno", idAno.toString());
                 switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
+                switchActivityIntent.putExtra("idDisciplina", idDisciplina);
                 switchActivityIntent.putExtra("question", question.toString());
                 startActivity(switchActivityIntent);
 
@@ -122,6 +123,8 @@ public class actSelecQuestoes extends BaseAPIActivity {
                 Intent switchActivityIntent = new Intent(actSelecQuestoes.this, actDisciplinas.class);
                 switchActivityIntent.putExtra("idAno", idAno.toString());
                 switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
+                switchActivityIntent.putExtra("idConteudo", idDisciplina);
+                switchActivityIntent.putExtra("idDisciplina", idDisciplina);
                 switchActivityIntent.putExtra("dsDisciplina", "");
                 startActivity(switchActivityIntent);
 
@@ -149,7 +152,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
             StringBuilder sb = new StringBuilder(str1);
 
             sb.append("'" + descricao + "', ");
-            sb.append("'" + idDisciplina + "') ");
+            sb.append(idDisciplina + ") ");
             db.execSQL(sb.toString());
             Log.i("Msg: ", "Importar: " + sb.toString());
 
@@ -179,7 +182,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
 
             db = SQLiteDatabase.openOrCreateDatabase(dbpath, null);
             db.execSQL("PRAGMA encoding = 'UTF-8'");
-            Cursor cr = db.rawQuery("SELECT id, descricao, id_disciplina FROM tb_perguntas_disciplinas" , null );
+            Cursor cr = db.rawQuery("SELECT id, descricao, id_disciplina FROM tb_perguntas_disciplinas where id_disciplina = " + idDisciplina.toString() , null );
 
 
             int indColId = cr.getColumnIndex("id");
@@ -221,7 +224,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
             ex.printStackTrace();
         }
 
-        return 0;
+        return ids.size();
 
     }
 

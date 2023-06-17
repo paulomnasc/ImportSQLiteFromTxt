@@ -30,6 +30,7 @@ public class MainActivity extends BaseAPIActivity {
     private String question;
     private Button btnVoltar;
     private Button btnPN;
+    private String idDisciplina;
 
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
@@ -49,6 +50,7 @@ public class MainActivity extends BaseAPIActivity {
         Intent intent= this.getIntent();
         question = intent.getStringExtra("question");
         dsDisciplina = intent.getStringExtra("dsDisciplina");
+        idDisciplina = intent.getStringExtra("idDisciplina");
         idAno = intent.getStringExtra("idAno");
         idConteudo = intent.getStringExtra("idConteudo");
         messageEditText.setText(question);
@@ -81,6 +83,7 @@ public class MainActivity extends BaseAPIActivity {
                 /* Retornar para Lista de Anos */
                 Intent switchActivityIntent = new Intent(MainActivity.this, actSelecQuestoes.class);
                 switchActivityIntent.putExtra("dsDisciplina", dsDisciplina);
+                switchActivityIntent.putExtra("idDisciplina", idDisciplina);
                 switchActivityIntent.putExtra("idAno", idAno.toString());
                 switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
                 switchActivityIntent.putExtra("question", "");
