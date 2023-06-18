@@ -88,10 +88,10 @@ public class actSelecQuestoes extends BaseAPIActivity {
                 /* Avançar para Conteudos */
                 Intent switchActivityIntent = new Intent(actSelecQuestoes.this, MainActivity.class);
                 switchActivityIntent.putExtra("dsDisciplina", dsDisciplina);
-                switchActivityIntent.putExtra("idAno", idAno.toString());
-                switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
+                switchActivityIntent.putExtra("idAno", idAno);
+                switchActivityIntent.putExtra("idConteudo", idConteudo);
                 switchActivityIntent.putExtra("idDisciplina", idDisciplina);
-                switchActivityIntent.putExtra("question", question.toString());
+                switchActivityIntent.putExtra("question", question);
                 startActivity(switchActivityIntent);
 
             }
@@ -121,11 +121,10 @@ public class actSelecQuestoes extends BaseAPIActivity {
 
 
                 Intent switchActivityIntent = new Intent(actSelecQuestoes.this, actDisciplinas.class);
-                switchActivityIntent.putExtra("idAno", idAno.toString());
-                switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
-                switchActivityIntent.putExtra("idConteudo", idDisciplina);
+                switchActivityIntent.putExtra("idAno", idAno);
+                switchActivityIntent.putExtra("idConteudo", idConteudo);
                 switchActivityIntent.putExtra("idDisciplina", idDisciplina);
-                switchActivityIntent.putExtra("dsDisciplina", "");
+                switchActivityIntent.putExtra("dsDisciplina", dsDisciplina);
                 startActivity(switchActivityIntent);
 
             }
@@ -188,15 +187,15 @@ public class actSelecQuestoes extends BaseAPIActivity {
             int indColId = cr.getColumnIndex("id");
             int indColDesc = cr.getColumnIndex("descricao");
 
-            descricoes = new ArrayList<String>();
+            questions = new ArrayList<String>();
             ids = new ArrayList<Integer>();
-            ArrayAdapter<String> itensAdaptador = new ArrayAdapter<String>(getApplicationContext(),
+            questionsAdaptador = new ArrayAdapter<String>(getApplicationContext(),
                     android.R.layout.simple_list_item_2
                     , android.R.id.text1
-                    , descricoes);
+                    , questions);
 
 
-            listaQuestions.setAdapter(itensAdaptador);
+            listaQuestions.setAdapter(questionsAdaptador);
 
 
             cr.moveToFirst();
@@ -205,17 +204,19 @@ public class actSelecQuestoes extends BaseAPIActivity {
                 //Log.i("Logx", "ID" + cr.getString(indColId));
                 ids.add(cr.getInt(indColId));
                 //Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
-                descricoes.add(cr.getString(indColDesc));
+                questions.add(cr.getString(indColDesc));
 
                 cr.moveToNext();
                 if(cr.isLast()) {
                     //Log.i("Logx", "ID" + cr.getString(indColId));
                     ids.add(cr.getInt(indColId));
                     //Log.i("Logx", "DESCRICAO" + cr.getString(indColDesc));
-                    descricoes.add(cr.getString(indColDesc));
+                    questions.add(cr.getString(indColDesc));
                 }
 
             }while (!cr.isLast());
+
+            if(ids.size() > 0) CriarQuestoesFixas();
 
 
 
@@ -273,7 +274,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
     private void listarQuestoes() {
 
 
-        ArrayList<String> questions = preencherQuestoes();
+        questions = preencherQuestoes();
         questionsAdaptador= new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_list_item_2
                 , android.R.id.text1
@@ -288,6 +289,15 @@ public class actSelecQuestoes extends BaseAPIActivity {
 
         listFromAPI();
 
+        CriarQuestoesFixas();
+
+
+        return questions;
+
+
+    }
+
+    private void CriarQuestoesFixas() {
         question = "Faça um resumo sobre " + txtAssunto.getText();
         questions.add(question);
         question = "Me dê exemplos de uso de " + txtAssunto.getText();
@@ -300,11 +310,6 @@ public class actSelecQuestoes extends BaseAPIActivity {
         questions.add(question);
 
         iconLoad.setVisibility(View.INVISIBLE);
-
-
-        return questions;
-
-
     }
 
     private void listFromAPI() {

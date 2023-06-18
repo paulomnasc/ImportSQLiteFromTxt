@@ -134,10 +134,10 @@ public class actDisciplinas extends AppCompatActivity {
 
                 /* Avançar para Conteudos */
                 Intent switchActivityIntent = new Intent(actDisciplinas.this, actSelecQuestoes.class);
-                switchActivityIntent.putExtra("dsDisciplina", dsDisciplina.toString());
+                switchActivityIntent.putExtra("dsDisciplina", dsDisciplina);
                 switchActivityIntent.putExtra("idDisciplina", idDisciplina);
-                switchActivityIntent.putExtra("idAno", idAno.toString());
-                switchActivityIntent.putExtra("idConteudo", idConteudo.toString());
+                switchActivityIntent.putExtra("idAno", idAno);
+                switchActivityIntent.putExtra("idConteudo", idConteudo);
                 startActivity(switchActivityIntent);
 
             }
