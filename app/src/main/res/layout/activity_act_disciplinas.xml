@@ -28,20 +28,22 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="16dp"
         android:text="@string/titulo_telaDisciplinas"
         android:textColor="#1C1B1B"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/lstDisciplinas"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.52" />
 
     <ListView
         android:id="@+id/lstDisciplinas"
         android:layout_width="398dp"
         android:layout_height="414dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="36dp"
         android:listSelector="@color/teal_200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.461"
@@ -53,14 +55,15 @@
         android:id="@+id/btnAvancar"
         android:layout_width="119dp"
         android:layout_height="65dp"
+        android:layout_marginTop="32dp"
         android:enabled="false"
         android:text="@string/proximo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintVertical_bias="0.97" />
 
     <Button
         android:id="@+id/btnVoltar"
@@ -73,7 +76,7 @@
         app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintVertical_bias="0.97" />
 
     <TextView
         android:id="@+id/textView4"
