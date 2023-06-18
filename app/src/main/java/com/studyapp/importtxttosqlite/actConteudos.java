@@ -37,6 +37,7 @@ public class actConteudos extends AppCompatActivity {
 
     private Button btnAvancar;
     private Button btnVoltar;
+    private String dsConteudo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class actConteudos extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 idSelecionado = ids.get(i).toString();
+                dsConteudo = descricoes.get(i).toString();
                 btnAvancar.setEnabled(true);
 
             }
@@ -77,8 +79,9 @@ public class actConteudos extends AppCompatActivity {
 
                 /* Avançar para Conteudos */
                 Intent switchActivityIntent = new Intent(actConteudos.this, actDisciplinas.class);
-                switchActivityIntent.putExtra("idAno", idAno.toString());
-                switchActivityIntent.putExtra("idConteudo", idSelecionado.toString());
+                switchActivityIntent.putExtra("idAno", idAno);
+                switchActivityIntent.putExtra("idConteudo", idSelecionado);
+                switchActivityIntent.putExtra("dsConteudo", dsConteudo);
                 startActivity(switchActivityIntent);
 
             }

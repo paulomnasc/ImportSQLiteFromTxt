@@ -49,6 +49,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
     private String idDisciplina;
     private ArrayList descricoes;
     private ArrayList ids;
+    private String dsConteudo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
         idDisciplina = intent.getStringExtra("idDisciplina");
         idAno = intent.getStringExtra("idAno");
         idConteudo = intent.getStringExtra("idConteudo");
+        dsConteudo = intent.getStringExtra("dsConteudo");
 
         txtAssunto.setText(dsDisciplina);
         iconLoad.setVisibility(View.VISIBLE);
@@ -91,6 +93,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
                 switchActivityIntent.putExtra("idAno", idAno);
                 switchActivityIntent.putExtra("idConteudo", idConteudo);
                 switchActivityIntent.putExtra("idDisciplina", idDisciplina);
+                switchActivityIntent.putExtra("dsConteudo", dsConteudo);
                 switchActivityIntent.putExtra("question", question);
                 startActivity(switchActivityIntent);
 
@@ -125,6 +128,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
                 switchActivityIntent.putExtra("idConteudo", idConteudo);
                 switchActivityIntent.putExtra("idDisciplina", idDisciplina);
                 switchActivityIntent.putExtra("dsDisciplina", dsDisciplina);
+                switchActivityIntent.putExtra("dsConteudo", dsConteudo);
                 startActivity(switchActivityIntent);
 
             }
@@ -234,7 +238,7 @@ public class actSelecQuestoes extends BaseAPIActivity {
     {
 
 
-        String question = "Cite as 10 dúvidas frequentes de " + txtAssunto.getText();
+        String question = "Cite as 10 dúvidas frequentes de " + dsConteudo + " - " + txtAssunto.getText();
 
 
         int qtdLinhas = listarDuvidasFrequentesFromDB();

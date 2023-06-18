@@ -33,6 +33,7 @@ public class actDisciplinas extends AppCompatActivity {
     private ArrayList<Integer> ids;
     private ArrayList<String> descricoes;
     private String dsDisciplina;
+    private String dsConteudo;
     private String idAno;
 
     private SQLiteDatabase db;
@@ -58,6 +59,7 @@ public class actDisciplinas extends AppCompatActivity {
 
         Intent intent= this.getIntent();
         idConteudo = intent.getStringExtra("idConteudo");
+        dsConteudo = intent.getStringExtra("dsConteudo");
         idAno = intent.getStringExtra("idAno");
 
         ListarDisciplinas(idAno, idConteudo);
@@ -138,6 +140,7 @@ public class actDisciplinas extends AppCompatActivity {
                 switchActivityIntent.putExtra("idDisciplina", idDisciplina);
                 switchActivityIntent.putExtra("idAno", idAno);
                 switchActivityIntent.putExtra("idConteudo", idConteudo);
+                switchActivityIntent.putExtra("dsConteudo", dsConteudo);
                 startActivity(switchActivityIntent);
 
             }
@@ -159,6 +162,7 @@ public class actDisciplinas extends AppCompatActivity {
                 Intent switchActivityIntent = new Intent(actDisciplinas.this, actConteudos.class);
                 switchActivityIntent.putExtra("idAno", idAno.toString());
                 switchActivityIntent.putExtra("idConteudo","");
+                switchActivityIntent.putExtra("dsConteudo", dsConteudo);
                 startActivity(switchActivityIntent);
 
             }
