@@ -220,6 +220,8 @@ public class actSelecQuestoes extends BaseAPIActivity {
 
             }while (!cr.isLast());
 
+            if(ids == null) return 0;
+
             if(ids.size() > 0) CriarQuestoesFixas();
 
 
